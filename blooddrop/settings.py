@@ -21,26 +21,47 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-rk)6e37*pylyki=@pup$hq0+hyx*gtbp*p$(nce6rl_i3zvjp)'
+SECRET_KEY = os.environ.get("SECRET_KEY", "asdfghjkkl")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = int(os.environ.get("DEBUG"))
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "*").split(",")
 AUTH_USER_MODEL = 'accounts_app.User'
 
 # Application definition
 
-INSTALLED_APPS = [
+DJANGO_APPS = [
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'accounts_app',
-    "phonenumber_field",
+
 ]
+
+CREATED_APP = [
+'accounts_app',
+]
+
+
+THIRD_PARTY_APP = [
+    'phonenumber_field',
+    'otp',
+    'django_otp',
+    'django_otp.plugins.otp_totp',
+    'otp_yubikey',
+    'otp_totp',
+]
+
+
+
+
+INSTALLED_APPS = DJANGO_APPS + CREATED_APP + THIRD_PARTY_APP
+    
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -57,7 +78,7 @@ ROOT_URLCONF = 'blooddrop.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -118,7 +139,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_URL = '/static/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -132,4 +157,12 @@ EMAIL_PORT = os.environ.get("EMAIL_PORT", "587")
 EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER", "DEFAULT_EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", "DFAULT_EMAIL_HOST_PASSWORD")
 EMAIL_USE_TLS = os.environ.get("EMAIL_USE_TLS", 1)
-FROM_EMAIL = os.environ.get("FROM_EMAIL", "UPDATE_FROM_EMAIL_ADD")
+
+AUTHENTICATION_BACKENDS = [
+    'accounts.backends.CustomBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+IS_FAST_SMS_SERVICE= os.environ.get("IS_FAST_SMS_SERVICE")
+FAST_SMS_KEY= os.environ.get("FAST_SMS_KEY")
+FAST_SMS_URL=os.environ.get("FAST_SMS_URL")
