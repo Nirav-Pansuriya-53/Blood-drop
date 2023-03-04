@@ -4,7 +4,6 @@ from .form import SignUpForm, LoginForm
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
-from .form import CustomLoginForm
 from django.views.generic.edit import CreateView
 from accounts_app.models import User
 from blooddrop.utils import send_sms
@@ -22,10 +21,6 @@ class SignUpView(CreateView):
     template_name = 'signup.html'
     success_url = 'login/'
     
-def index(request):
-    return HttpResponse('hello')
-
-
 
 class LoginView(CreateView):
     model = User
@@ -66,28 +61,4 @@ class LoginView(CreateView):
             # if user is not None:
             #     login(request, user)
             #     return redirect('home')
-            
 
-
-
-
-
-
-
-
-
-def login_view(request):
-    if request.method == 'POST':
-        form = CustomLoginForm(request.POST)
-        if form.is_valid():
-            user = User.objects.filter(phone_number)
-
-
-
-            user = authenticate(request, phone_number=phone_number, otp=form.cleaned_data['otp'])
-            if user is not None:
-                login(request, user)
-                return redirect('home')
-    else:
-        form = CustomLoginForm()
-    return render(request, 'login.html', {'form': form})
