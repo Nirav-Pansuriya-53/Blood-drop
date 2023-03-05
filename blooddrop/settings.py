@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get("SECRET_KEY", "asdfghjkkl")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = int(os.environ.get("DEBUG"))
+DEBUG = int(os.environ.get("DEBUG",default=1))
 
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "*").split(",")
 AUTH_USER_MODEL = 'accounts_app.User'
@@ -49,11 +49,6 @@ CREATED_APP = [
 
 THIRD_PARTY_APP = [
     'phonenumber_field',
-    'otp',
-    'django_otp',
-    'django_otp.plugins.otp_totp',
-    'otp_yubikey',
-    'otp_totp',
 ]
 
 
@@ -158,11 +153,11 @@ EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER", "DEFAULT_EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", "DFAULT_EMAIL_HOST_PASSWORD")
 EMAIL_USE_TLS = os.environ.get("EMAIL_USE_TLS", 1)
 
-AUTHENTICATION_BACKENDS = [
-    'accounts.backends.CustomBackend',
-    'django.contrib.auth.backends.ModelBackend',
-]
+# AUTHENTICATION_BACKENDS = [
+#     'accounts.backends.CustomBackend',
+#     'django.contrib.auth.backends.ModelBackend',
+# ]
 
 IS_FAST_SMS_SERVICE= os.environ.get("IS_FAST_SMS_SERVICE")
-FAST_SMS_KEY= os.environ.get("FAST_SMS_KEY")
+FAST2SMS_API_KEY= 'oRjhUcH1zXSnosExmWpDY6Ag5vfF089JI3udibeT2QZGLPBMtyViLdOcguaRqM6wjpeYmlPNE3XvSn9J4'
 FAST_SMS_URL=os.environ.get("FAST_SMS_URL")
