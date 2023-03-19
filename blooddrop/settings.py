@@ -44,11 +44,13 @@ DJANGO_APPS = [
 
 CREATED_APP = [
 'accounts_app',
+'bloodbank',
 ]
 
 
 THIRD_PARTY_APP = [
     'phonenumber_field',
+    'widget_tweaks',
 ]
 
 
@@ -146,18 +148,18 @@ MEDIA_URL = '/media/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-EMAIL_BACKEND = os.environ.get("EMAIL_BACKEND", "django.core.mail.backends.smtp.EmailBackend")
+EMAIL_BACKEND = os.environ.get("EMAIL_BACKEND", 'django.core.mail.backends.smtp.EmailBackend')
 EMAIL_HOST = os.environ.get("EMAIL_HOST", "smtp.gmail.com")
-EMAIL_PORT = os.environ.get("EMAIL_PORT", "587")
-EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER", "DEFAULT_EMAIL_HOST_USER")
-EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", "DFAULT_EMAIL_HOST_PASSWORD")
-EMAIL_USE_TLS = os.environ.get("EMAIL_USE_TLS", 1)
+EMAIL_PORT = os.environ.get("EMAIL_PORT", 587)
+EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER", "amk@taglineinfotech.com")
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", "ctsjoehfesepnqtc")
+EMAIL_USE_TLS = os.environ.get("EMAIL_USE_TLS", True)
 
-# AUTHENTICATION_BACKENDS = [
+# AUTHENTICATION_BACKENDS = [   
 #     'accounts.backends.CustomBackend',
 #     'django.contrib.auth.backends.ModelBackend',
 # ]
 
-IS_FAST_SMS_SERVICE= os.environ.get("IS_FAST_SMS_SERVICE")
-FAST2SMS_API_KEY= 'oRjhUcH1zXSnosExmWpDY6Ag5vfF089JI3udibeT2QZGLPBMtyViLdOcguaRqM6wjpeYmlPNE3XvSn9J4'
-FAST_SMS_URL=os.environ.get("FAST_SMS_URL")
+IS_FAST_SMS_SERVICE= 1
+FAST2SMS_API_KEY= 'RjhUcH1zXSnosExmWpDY6Ag5vfF089JI3udibeT2QZGLPBMtyViLdOcguaRqM6wjpeYmlPNE3XvSn9J4'
+FAST_SMS_URL= "https://www.fast2sms.com/dev/bulkV2"

@@ -1,0 +1,195 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+{% block header %}
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" href="{% static 'custom.css' %}">
+        
+        <link rel="stylesheet" href="{% static 'styles.css' %}">
+        
+        <link rel="stylesheet" href='https://fonts.googleapis.com/css?family=Roboto:400,700'>
+
+        <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}" >
+
+
+        <title>{% block title %} base {% endblock title %}</title>
+        
+        <style> 
+        .logo img{
+         height:80px;
+         object-fit:cover;
+        }
+                             
+  </style> 
+        {% block extra_css %}          
+                
+        {% endblock extra_css %}
+
+    </head>
+
+{% endblock header %}
+
+<body>
+    <nav id="mainNav" class="navbar fixed-top navbar-default navbar-expand-lg navbar-light bg-light">
+        <div class="logo"><image src="{% static 'images/logo2.png' %}"></div>
+        
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+      
+          <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+
+
+          </ul>
+          
+          <ul class="navbar-nav form-inline my-2 my-lg-0">
+      
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'index' %}">Home</a>
+            </li>
+      
+            <li class="nav-item">
+              <a class="nav-link" href="">Donors</a>
+            </li>
+      
+            <li class="nav-item">
+              <a href="{% url 'certificate' %}">Download_Certificate</a>
+
+            </li>
+      
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'login' %}">Signin</a>
+            </li>
+            
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'about' %}">About Us</a>
+            </li>
+
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Donor Name<!-- Donor Name -->
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" href="./index.php"><i class="fa fa-user" aria-hidden="true"></i> Profile</a>
+                <a class="dropdown-item" href="./update.php"><i class="fa fa-edit" aria-hidden="true"></i>Update Profile</a>
+                <a class="dropdown-item" href="#">
+                <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>Logout</a>
+              </div>
+            </li>   
+          </ul>
+        </div>
+      </nav> 
+
+    {% block content %}
+    
+    {% endblock content %}
+
+    {% block footer %}
+
+<section class="">
+      <!-- Footer -->
+      <footer class="bg-light text-danger">
+        <!-- Grid container -->
+        <div class="container p-4">
+          <!--Grid row-->
+          <div class="row">
+            <!--Grid column-->
+            <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+              <h5 class="text-danger">Footer Content</h5>
+    
+              <p>
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste atque ea quis
+                molestias. Fugiat pariatur maxime quis culpa corporis vitae repudiandae
+                aliquam voluptatem veniam, est atque cumque eum delectus sint!
+              </p>
+            </div>
+            <!--Grid column-->
+    
+            <!--Grid column-->
+            <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+              <h5 class="text-uppercase">Links</h5>
+    
+              <ul class="list-unstyled mb-0">
+                <li>
+                  <a href="#!" class="text-danger">Link 1</a>
+                </li>
+                <li>
+                  <a href="#!" class="text-danger">Link 2</a>
+                </li>
+                <li>
+                  <a href="#!" class="text-danger">Link 3</a>
+                </li>
+                <li>
+                  <a href="#!" class="text-danger">Link 4</a>
+                </li>
+              </ul>
+            </div>
+            <!--Grid column-->
+    
+            <!--Grid column-->
+            <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+              <h5 class="text-uppercase mb-0">Links</h5>
+    
+              <ul class="list-unstyled">
+                <li>
+                  <a href="#!" class="text-danger">Link 1</a>
+                </li>
+                <li>
+                  <a href="#!" class="text-danger">Link 2</a>
+                </li>
+                <li>
+                  <a href="#!" class="text-danger">Link 3</a>
+                </li>
+                <li>
+                  <a href="#!" class="text-danger">Link 4</a>
+                </li>
+              </ul>
+            </div>
+            <!--Grid column-->
+          </div>
+          <!--Grid row-->
+        </div>
+        <!-- Grid container -->
+    
+        <!-- Copyright -->
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+          © 2020 Copyright:
+         
+        </div>
+        <!-- Copyright -->
+      </footer>
+      <!-- Footer -->
+    </section> 
+
+    {% endblock footer %} 
+    	    <!-- JQuery File -->
+        <script type="text/javascript" src="{% static 'jquery/jquery.js' %}"></script>
+    
+          <!-- BootStrap JS File-->
+        <script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+          
+          <!-- Fontawesome Icon JS-->
+        <script defer src="{% static 'fontawesome/js/all.js' %}"></script>
+  
+      <script>
+          
+        
+          $(window).on('resize', function () {
+            if ($(window).width() > 768) $('#sidebar-collapse').collapse('show')
+          })
+          $(window).on('resize', function () {
+            if ($(window).width() <= 767) $('#sidebar-collapse').collapse('hide')
+          })
+        </script>
+</body>
+</html> 
+

@@ -1,0 +1,66 @@
+{% extends "user/base.html" %}
+
+{% load static %}
+
+{% block extra_css %}
+{{ block.super }}
+<style>
+  h1{
+    text-align : center
+}
+form {
+    max-width: 500px;
+    margin: 0 auto;
+    box-shadow: 3px 3px 3px 3px lightgrey;
+    padding: 20px;
+    margin-top:100px;
+    margin-bottom:100px;
+  }
+  
+  label, input, textarea {
+    display:block;            
+    margin-bottom: 10px;
+    width:100%
+  }
+  label
+  {
+    font-weight: bold;
+  }
+  input, textarea {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  button {
+    background-color:	#ff0040;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  } 
+</style>
+
+{% endblock extra_css %}
+
+       
+{% block content %}
+
+  <form method="post" novalidate>
+    <h1>SignIn</h1>
+ 
+
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Send OTP</button>
+    <p class="text-center">Don't have an account? <a href=" {% url 'signup' %} ">Create an account</a>.</p>
+  </form>
+
+{% endblock content %}
+  
+

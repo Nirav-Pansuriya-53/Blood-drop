@@ -4,7 +4,7 @@ import json
 
 def send_sms(phone_numbers, message):
 
-    querystring = {"authorization":settings.FAST_SMS_KEY,"message":message,"language":"english","route":"q","numbers":",".join(phone_numbers)}
+    querystring = {"authorization":settings.FAST2SMS_API_KEY,"sender_id":"FTWSMS", "message":message,"language":"english","route":"q","numbers":phone_numbers}
 
     headers = {
         'cache-control': "no-cache"
@@ -12,4 +12,7 @@ def send_sms(phone_numbers, message):
 
     response = requests.request("GET", settings.FAST_SMS_URL, headers=headers, params=querystring)
 
-    return json.loads(response.content)
+    print("*"*100)
+    print(json.loads(response.content))
+    print("*"*100)
+ 

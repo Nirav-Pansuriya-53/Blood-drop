@@ -1,70 +1,127 @@
-from django.shortcuts import render
 from django.views.generic import CreateView
-from django.views import View 
+from django.views import View
+from django.views.generic.base import TemplateView
 from .form import SignUpForm,LoginForm,OTPForm
 from django.http import HttpResponse
-from django.contrib.auth import authenticate, login
-from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.views.generic.edit import CreateView,FormView
-from accounts_app.models import User
-from blooddrop.utils import send_sms
-from django import forms
-from datetime import datetime
-from random import choice
-import string
+from django.core.mail import send_mail
 from django.conf import settings
+from datetime import datetime
+from django.contrib import messages
+import random
+from django.contrib.auth import login as auth_login
+from django.shortcuts import HttpResponseRedirect
+from django.http import HttpResponse
+from django.template.loader import get_template
+from django.views import View
+from django.conf import settings
+from io import BytesIO
+from reportlab.pdfgen import canvas
+from PIL import Image, ImageDraw, ImageFont
 
 
-# Create your views here.
+# index view for user 
+class IndexView(TemplateView):   
+    template_name="user/index.html"
+
+
+class AboutView(TemplateView):
+    template_name="user/about.html"
+
+
 class SignUpView(CreateView):
     form_class = SignUpForm
-    template_name = 'signup.html'
-    success_url = '/user/sign-in/'
+    template_name = 'user/signup.html'
+    success_url = '/user/verify-otp/'
+    # def dispatch(self, request: http.HttpRequest, *args: Any, **kwargs: Any) -> http.HttpResponse:
+    #     return super().dispatch(request, *args, **kwargs)
+    def form_valid(self, form):
+        super().form_valid(form)
+        email = form.cleaned_data.get('email')
+        user = form.instance
+        otp = random.randrange(111111, 999999)
+
+        subject = 'Your OTP for logging in to our site'
+        message = f'Your OTP is: {otp}'
+        from_email = settings.EMAIL_HOST_USER
+        recipient_list = [email]
+
+        send_mail(subject, message, from_email, recipient_list)
+
+
+        user.otp = otp 
+        user.otp_created_at = datetime.today()
+        user.save()
+
+        return HttpResponseRedirect(reverse("verify-otp", kwargs={"user_id": user.id}))
+
 
 # For the demo
-class VerifyOtpView(CreateView):
+class VerifyOtpView(FormView):
     form_class = OTPForm
-    success_url = '/dashboard/'
-    template_name = 'verify_otp.html'
+    success_url = '/user/index/'
+    template_name = 'user/verify_otp.html'
 
-class IndexView(View):
-    def get(self):
-        return HttpResponse('you have login successfully')
+    def get_form_kwargs(self):
+        form_kwargs = super().get_form_kwargs()
+        form_kwargs["user_id"] = self.kwargs.get("user_id")
+        return form_kwargs
+
+    def form_valid(self, form):
+        auth_login(self.request, form.get_user())
+        return HttpResponseRedirect(self.get_success_url())
     
-class LoginView(CreateView):
-    model = User
-    template_name = "login.html"
+    def get_context_data(self, **kwargs,):
+        context =  super().get_context_data(**kwargs)
+        context["user_id"] = self.kwargs.get("user_id")
+        return context
+
+
+class LoginView(FormView):
+    template_name = "user/login.html"
     form_class = LoginForm
-    success_url = '/user/signup/'
+    success_url = '/verify-otp/'
 
-    def get(self, request, *args, **kwargs):
-        return super().get(request, *args, **kwargs)
+    def form_valid(self, form):
+        user = form.get_user()
+        messages.success(self.request, 'An OTP has been sent to your email.')
+        return HttpResponseRedirect(reverse("verify-otp", kwargs={"user_id": user.id}))
 
-    def post(self, request, *args, **kwargs):
 
-        form = self.form_class(data=request.POST)
-        if form.is_valid():
-            phone_number = form.cleaned_data['phone_number']
-            user = self.model.objects.filter(phone_number=phone_number).first()
-            if not user:
-                raise forms.ValidationError({"phone_number" : "The user is not exists with this phone number"})
-            
-            generated_otp = ''.join(choice(string.digits) for _ in range(4))
-            sms_message = "Hello dear customer,\nThis message from Blood drop for OTP code.\nYour OTP is :- {}.\nThanks for using Blood drop.".format(generated_otp)
 
-            otp = None
+class CertificateView(View):
+    def get(self, request):
+        # Get the donor details from the database or request
+        donor_name = "John Doe"
+        donation_date = "17 March 2023"
+        blood_type = "A+"
 
-            if settings.IS_FAST_SMS_SERVICE and int(settings.IS_FAST_SMS_SERVICE):
-                sent_otp_response = send_sms([phone_number, ], sms_message)
-                if not sent_otp_response.get("return"):
-                    raise forms.ValidationError({"phone_number" : "Given phone number is wrong."})
-            else:
-                otp = 1234
+        # Create a ByteIO buffer to receive PDF data.
+        buffer = BytesIO()
 
-            user.otp = otp
-            user.otp_create_at = datetime.today()
-            user.save()
+        # Create the PDF object, using the BytesIO object as its "file."
+        p = canvas.Canvas(buffer)
 
-            return redirect('verify-otp')
-        return self.form_invalid(form)
+        # Add the background image to the PDF.
+        bg_image_path = "accounts_app\static\images\cirti2.jpeg"
+        p.drawImage(bg_image_path, 0, 0, width=p._pagesize[0], height=p._pagesize[1])
+        p.setFillColorRGB(1, 0, 0)
 
+
+        # Add the certificate details to the PDF.
+        p.drawString(250, 380, "Mr./Ms. " + donor_name)
+        p.drawString(200, 340, "has donated blood on " + donation_date)
+        p.setFillColorRGB(1, 0, 0)
+        p.drawString(230, 310, "and has a blood type of " + blood_type)
+        # Close the PDF object cleanly, and we're done.
+        p.showPage()
+        p.save()
+
+        # FileResponse sets the Content-Disposition header so that browsers
+        # present the option to save the file.
+        buffer.seek(0)
+        filename = 'certificate.pdf'
+        response = HttpResponse(buffer, content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment; filename=%s' % filename
+        return response
