@@ -56,27 +56,27 @@
             <li class="nav-item">
               <a class="nav-link" href="{% url 'index' %}">Home</a>
             </li>
-      
-            <li class="nav-item">
-              <a class="nav-link" href="">Donors</a>
-            </li>
-      
-            <li class="nav-item">
-              <a href="{% url 'certificate' %}">Download_Certificate</a>
-
-            </li>
-      
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'login' %}">Signin</a>
-            </li>
             
             <li class="nav-item">
               <a class="nav-link" href="{% url 'about' %}">About Us</a>
             </li>
 
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'login' %}">Signin</a>
+            </li>
+            
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+            </li>
+            
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'donation_history' request.user.id %}">Donation_History</a>
+            </li>
+      
+            
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Donor Name<!-- Donor Name -->
+              <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{request.user.name}}
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                 <a class="dropdown-item" href="./index.php"><i class="fa fa-user" aria-hidden="true"></i> Profile</a>

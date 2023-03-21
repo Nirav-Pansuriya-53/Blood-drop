@@ -10,15 +10,21 @@ from django.conf import settings
 from datetime import datetime
 from django.contrib import messages
 import random
-from django.contrib.auth import login as auth_login
-from django.shortcuts import HttpResponseRedirect
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth import logout
+from django.contrib.auth.views import auth_login
+from django.shortcuts import HttpResponseRedirect,redirect
 from django.http import HttpResponse
-from django.template.loader import get_template
 from django.views import View
 from django.conf import settings
 from io import BytesIO
 from reportlab.pdfgen import canvas
 from PIL import Image, ImageDraw, ImageFont
+from django.views.generic import DetailView
+from accounts_app.models import User
+from bloodbank.models import Donation
+from django.contrib.auth.views import LogoutView
+from django.urls import reverse_lazy
 
 
 # index view for user 
@@ -91,11 +97,12 @@ class LoginView(FormView):
 
 
 class CertificateView(View):
-    def get(self, request):
+    def get(self, request, donation_pk):
         # Get the donor details from the database or request
-        donor_name = "John Doe"
-        donation_date = "17 March 2023"
-        blood_type = "A+"
+        donation = Donation.objects.get(pk=donation_pk)
+        donor_name = donation.donor.name
+        donation_date = donation.donation_date.strftime('%B %d, %Y')
+        blood_type = donation.donor.blood_group.blood_group
 
         # Create a ByteIO buffer to receive PDF data.
         buffer = BytesIO()
@@ -125,3 +132,21 @@ class CertificateView(View):
         response = HttpResponse(buffer, content_type='application/pdf')
         response['Content-Disposition'] = 'attachment; filename=%s' % filename
         return response
+
+class DonationHistory(LoginRequiredMixin, DetailView):
+    login_url = 'login'
+    model = User
+    template_name = 'user/doner_history.html' 
+    context_object_name = 'user'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['donations'] = self.object.donation.all()
+        return context
+    
+class LogoutView(View):
+
+    def get(self, request):
+        logout(request)
+        messages.info(request, "You have successfully logged out.")
+        return redirect("index")

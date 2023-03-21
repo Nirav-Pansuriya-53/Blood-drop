@@ -30,7 +30,7 @@ class CampSchedule(models.Model):
     def __str__(self):
         return str(self.date)
     
-    
+
 class Donation(models.Model):
     donor = models.ForeignKey(User, on_delete=models.CASCADE, related_name='donation')
     donation_date = models.DateTimeField(auto_now_add=True)

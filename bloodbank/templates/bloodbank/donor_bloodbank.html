@@ -1,0 +1,66 @@
+{% extends "bloodbank/base_bloodbank.html" %}
+
+{% block extra_css %}
+
+
+{% endblock extra_css %}
+
+
+{% block content %}
+<br><br>
+<div class="container">
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <p class="card-title">Name</p>
+          <p class="card-text">Email</p>
+        </div>
+      </div>
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Phone No.</th>
+            <th scope="col">City</th>
+            <th scope="col">State</th>
+            <th scope="col">Pincode</th>
+            <th scope="col">Bloodgroup</th>
+            <th scope="col">Donation Date</th>
+            <th scope="col">Blood Bank</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            {% for user in object_list %}
+            <td>{{ user.name }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.phone_number }}</td>
+            <td>{{ user.city }}</td>
+            <td>{{ user.state }}</td>
+            <td>{{ user.pincode }}</td>
+            <td>{{ user.blood_group.blood_group }}</td>
+                {% if user.donation.exists %}
+                   <td>{{ user.donation.first.donation_date }}</td>
+                   <td>{{ user.donation.first.bloodbank }}</td>
+                {% else %}
+                    No donation found
+                {% endif %}
+            </td>
+        {% endfor %}
+        <tr>
+        </tbody>
+      </table>
+</div>
+
+
+<div class="container" id="container">
+    <div class="form-container sign-up-container">
+      <form action="" method="post" novalidate>
+      
+          {% csrf_token %}
+          {{form.as_p}}<br>
+          <button type="submit">Submit</button>
+      </form>
+    </div>
+  </div>
+{% endblock content %}

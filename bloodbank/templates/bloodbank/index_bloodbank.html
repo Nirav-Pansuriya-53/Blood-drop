@@ -21,6 +21,36 @@
     .xyz{
       margin-left:230px;
     }
+    @import url("https://fonts.googleapis.com/css2?family=Poppins:weight@100;200;300;400;500;600;700;800&display=swap");
+
+    .search{
+    position: relative;
+    box-shadow: 0 0 40px rgba(51, 51, 51, .1);
+      
+    }
+    .search input{
+
+     height: 50px;
+     text-indent: 25px;
+     border: 2px solid #d6d4d4;
+    }
+   .search input:focus{
+     box-shadow: none;
+     border: 2px solid grey;
+    }
+    .search .fa-search{
+     position: absolute;
+     top: 20px;
+     left: 16px;
+    }
+    .search button{
+     position: absolute;
+     top: 5px;
+     right: 5px;
+     height: 40px;
+     width: 110px;
+    }
+
 </style> 
 
 {% endblock extra_css %}
@@ -28,7 +58,23 @@
 {% block content %}
 
 <br><br>
+
 <div class="container">
+  <form method="get" action="{% url 'donordetail' %}">
+      <div class="row height d-flex justify-content-center align-items-center">
+
+        <div class="col-md-8">
+
+          <div class="search">
+            <i class="fa fa-search"></i>
+            <input type="text" class="form-control" name="q" placeholder="Search donor email id wise ">
+            <button class="btn btn-danger">Search</button>
+          </div>
+          
+        </div>
+        
+      </div>
+  </form>
 
     <div class="row">
       <div class="col-sm-3">
@@ -162,6 +208,7 @@
 
 
 </div>
+
 
 
 {% endblock content %}
