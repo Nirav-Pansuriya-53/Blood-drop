@@ -16,8 +16,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 
+from django.conf import settings
+from django.conf.urls.static import
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('accounts_app/',include('accounts_app.urls'))
-]
+    path('user/',include('accounts_app.urls')),
+    path('bloodbank/',include('bloodbank.urls'))
+    
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

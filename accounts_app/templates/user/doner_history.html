@@ -1,0 +1,50 @@
+{% extends "user/base.html" %}
+
+{% block extra_css %}
+
+<style>
+  table{
+    border: 2px solid red;
+    border-radius: 50px ;
+  }
+  thead{
+    background:rgb(255, 179, 179);
+  }
+</style>
+
+{% endblock extra_css %}
+
+{% block content %}
+<br><br>
+<div class="container">
+    <h1>Donation History</h1>
+    <br>
+    <table class="table table-striped ">
+        <thead class="text-white bg-danger">
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Bloodgroup</th>
+            <th scope="col">Donation Date</th>
+            <th scope="col">Blood Bank</th>
+            <th scope="col">Download Certificate</th>
+          </tr>
+        </thead>
+        <tbody>
+                {% if donations %}
+                    {% for donation in donations %}
+                    <tr>
+                        <td>{{ user.name }}</td>
+                        <td>{{ user.blood_group.blood_group }}</td>
+                        <td>{{ donation.donation_date }} </td>
+                        <td>{{ donation.bloodbank }}</td>
+                        <td><a href="{% url 'certificate' donation.id %}"><button type='button' class='btn btn-warning' >Download</button></a></td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    No donation found
+                {% endif %}           
+        </tbody>
+      </table>
+</div>
+<br><br><br><br><br><br>
+{% endblock content %}

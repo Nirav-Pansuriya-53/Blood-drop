@@ -1,0 +1,81 @@
+{% extends "bloodbank/base_bloodbank.html" %}
+
+{% block extra_css %}
+<style>
+  .card{
+    margin-left:350px;
+    width:600px;
+    border: 4px solid #000000;
+    border-radius: 10px; 
+  }
+  b{
+    padding-left:12px;
+  }
+</style>
+
+{% endblock extra_css %}
+
+
+{% block content %}
+<br><br>
+  <div class="container mt-4">
+    <div class="row">
+      
+      {% for user in object_list %}
+          <div class="card ">
+            <div class="card-header bg-danger text-center">
+              <h1 class="card-title text-white"><b>{{user.name}}</b></h1>
+            </div>
+
+            <div class="card-header">
+              <h4 class="card-subtitle mb-2">BloodGroup:- <b>{{ user.blood_group.blood_group }}</b></h4>
+            </div>
+
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">Email :- <b>{{ user.email }}</b></li>
+              <li class="list-group-item">Mobile No :- <b>{{ user.phone_number }}</b></li>
+              <li class="list-group-item">Address :- <b>{{ user.city|title }}, {{ user.state|title }} {{ user.pincode }}</b></li>
+              
+              {% if user.donation.exists %}
+                {% with latest_donation=user.donation.latest %}
+                  
+                  <li class="list-group-item">
+                    Latest Donation :- <b>{{ latest_donation.donation_date|date }}</b>
+                  </li>
+
+                  <li class="list-group-item">
+                    BloodBank :- <b>{{ latest_donation.bloodbank|title }}</b>
+                  </li>
+                  {% with next_donation=latest_donation.donation_date|add:timedelta %}
+                        <li class="list-group-item">
+                          Next Donation :- <b>{{ next_donation|date}}</b>
+                        </li>
+                       
+                        {% if next_donation|date <= today|date %}
+                          <li class="list-group-item text-center">
+                            <a href="{% url 'donation_form' %}"><button type="submit" class="btn btn-danger" >Donat Now</button></a>
+                          </li>
+                        {% else %}
+                          <script>
+                            var user = ('{{user.name}}')
+                            var nextDonation = ('{{next_donation|date}}')
+                            alert(user + ' you can donate the blood after ' + nextDonation + ' date.');
+                          </script>
+
+                          <li class="list-group-item text-center">
+                            <a href="{% url 'donation_form' %}"><button type="submit" class="btn btn-danger" disabled>Donat Now</button></a>
+                          </li>
+                        {% endif %}
+                  {% endwith %}
+                {% endwith %}
+              {% else %}
+                <script>
+                  alert('No donation found.');
+                </script>
+              {% endif %}
+            </ul>
+          </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock content %}

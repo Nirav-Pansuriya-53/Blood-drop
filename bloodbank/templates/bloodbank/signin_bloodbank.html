@@ -1,0 +1,112 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ADMIN</title>
+
+<link rel="stylesheet" href='https://fonts.googleapis.com/css?family=Roboto:400,700'>
+
+<link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}" >
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.css">
+
+<style>
+ 
+    body {
+        background-image:  url('/static/images/home_1_slider_1.jpg');
+        background-size: cover;
+        background-position: center;
+      }
+    .animated-bg {
+       background-size: cover;
+      }
+      
+      .form-container {
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: rgba(255, 255, 255, 0.7);
+        border-radius: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        opacity: 0.9;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 50px;
+      }
+
+      form {
+        max-width: 500px; /* adjust this value as needed */
+        width: 100%;
+      }
+      .form-group {
+        margin-bottom: 20px;
+      }
+      body {
+        padding: 150px;
+      }
+      label {
+        display: block;
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+      
+      input[type="text"],
+      input[type="password"] {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border-radius: 20px;
+        border: none;
+        background-color: #eee;
+      }
+      
+      button[type="submit"] {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        font-weight: bold;
+        border-radius: 20px;
+        border: none;
+        background-color: #dc3545;
+        color: #fff;
+      }
+      
+      @media (max-width: 600px) {
+        .form-container {
+          max-width: 90%;
+        }
+      }
+      
+      @keyframes background {
+        from { background-color: rgba(0, 0, 0, 0.7); }
+        to { background-color: rgba(255, 255, 255, 0.7); }
+      }
+    </style>
+</head>
+
+<body class="animated-bg">
+             
+  <div class="form-container">
+    <form method="post" novalidate>
+      {% csrf_token %}
+  
+      {{form.as_p}}
+  
+      <button type="submit" class="btn btn-danger">Sign in</button>
+    </form>
+  </div>
+
+          
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+</body>
+</html>
+  
+

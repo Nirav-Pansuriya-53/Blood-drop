@@ -21,26 +21,44 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-rk)6e37*pylyki=@pup$hq0+hyx*gtbp*p$(nce6rl_i3zvjp)'
+SECRET_KEY = os.environ.get("SECRET_KEY", "asdfghjkkl")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = int(os.environ.get("DEBUG",default=1))
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "*").split(",")
 AUTH_USER_MODEL = 'accounts_app.User'
 
 # Application definition
 
-INSTALLED_APPS = [
+DJANGO_APPS = [
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'accounts_app',
-    "phonenumber_field",
+
 ]
+
+CREATED_APP = [
+'accounts_app',
+'bloodbank',
+]
+
+
+THIRD_PARTY_APP = [
+    'phonenumber_field',
+    'widget_tweaks',
+]
+
+
+
+
+INSTALLED_APPS = DJANGO_APPS + CREATED_APP + THIRD_PARTY_APP
+    
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -57,7 +75,7 @@ ROOT_URLCONF = 'blooddrop.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -118,7 +136,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_URL = '/static/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -126,10 +148,18 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-EMAIL_BACKEND = os.environ.get("EMAIL_BACKEND", "django.core.mail.backends.smtp.EmailBackend")
+EMAIL_BACKEND = os.environ.get("EMAIL_BACKEND", 'django.core.mail.backends.smtp.EmailBackend')
 EMAIL_HOST = os.environ.get("EMAIL_HOST", "smtp.gmail.com")
-EMAIL_PORT = os.environ.get("EMAIL_PORT", "587")
-EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER", "DEFAULT_EMAIL_HOST_USER")
-EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", "DFAULT_EMAIL_HOST_PASSWORD")
-EMAIL_USE_TLS = os.environ.get("EMAIL_USE_TLS", 1)
-FROM_EMAIL = os.environ.get("FROM_EMAIL", "UPDATE_FROM_EMAIL_ADD")
+EMAIL_PORT = os.environ.get("EMAIL_PORT", 587)
+EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER", "blood.drop00@gmail.com")
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", "ztlqfquxpgktckqv")
+EMAIL_USE_TLS = os.environ.get("EMAIL_USE_TLS", True)
+
+# AUTHENTICATION_BACKENDS = [   
+#     'accounts.backends.CustomBackend',
+#     'django.contrib.auth.backends.ModelBackend',
+# ]
+
+IS_FAST_SMS_SERVICE= 1
+FAST2SMS_API_KEY= 'RjhUcH1zXSnosExmWpDY6Ag5vfF089JI3udibeT2QZGLPBMtyViLdOcguaRqM6wjpeYmlPNE3XvSn9J4'
+FAST_SMS_URL= "https://www.fast2sms.com/dev/bulkV2"

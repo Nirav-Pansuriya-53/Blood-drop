@@ -1,0 +1,77 @@
+{% extends "user/base.html" %}
+
+{% load static %}
+
+{% block extra_css %}
+{{ block.super }}
+<style>
+  h1{
+    text-align : center
+}
+form {
+    max-width: 500px;
+    padding:100px;
+  }
+  
+  label, input, textarea {
+    display:block;            
+    margin-bottom: 10px;
+    width:100%
+  }
+  label
+  {
+    font-weight: bold;
+  }
+  input, textarea {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  button {
+    background-color:	#ff0040;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  } 
+  .baner_conten{
+    left: 50%;
+    top: 5%;
+    transform: translate(-50%) !important;
+  }
+</style>
+
+{% endblock extra_css %}
+
+       
+{% block content %}
+<section class="baner">
+  <div class="row">
+      <div class="col-xl-12  p-0 col-12">
+          <div class="layer   position-relative">
+              <img src="{% static 'images/heart_bg.jpg' %}" alt="">
+             
+                           <div class="baner_conten position-absolute   d-flex justify-content-center  align-items-center ">
+                               <div class="text_contner  text-center d-flex justify-content-center align-items-center  w-100 h-100">
+                                  <form method="post" novalidate>
+                                  <h1>SignIn</h1>                              
+                                  {% csrf_token %}
+                                  {{ form.as_p }}
+                                  <button type="submit">Send OTP</button>
+                                  <p class="text-center text-danger">Don't have an account? <a href=" {% url 'signup' %} ">Create an account</a>.</p>
+                                </form>
+                              </div>
+                          </div>
+          </div>
+      </div>
+  </div>
+</section>
+  
+{% endblock content %}
+  
+

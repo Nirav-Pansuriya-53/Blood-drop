@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>BloodDrop Certificate</title>
+	<style>
+		body {
+			background-image: url('path/to/background/image.jpg');
+			background-repeat: no-repeat;
+			background-size: cover;
+			font-family: Arial, sans-serif;
+		}
+		h1 {
+			color: #8B0000;
+			text-align: center;
+			font-size: 3em;
+			margin-top: 50px;
+			margin-bottom: 50px;
+			text-shadow: 2px 2px #E9967A;
+		}
+		img {
+			display: block;
+			margin: 0 auto;
+			max-width: 200px;
+			margin-bottom: 50px;
+			filter: drop-shadow(2px 2px 2px #E9967A);
+		}
+		.certificate-info {
+			text-align: center;
+			margin-bottom: 50px;
+		}
+		.certificate-info p {
+			font-size: 1.5em;
+			margin: 0;
+			line-height: 1.5em;
+		}
+		.certificate-info span {
+			font-weight: bold;
+		}
+	</style>
+</head>
+<body>
+	<h1>BloodDrop Certificate</h1>
+	<img src="path/to/blooddrop/logo.png" alt="BloodDrop Logo">
+	<div class="certificate-info">
+		<p>This certificate is awarded to <span>{{ name }}</span> for donating blood on <span>{{ date }}</span> with blood group <span>{{ blood_group }}</span>.</p>
+		<p>Certificate ID: <span>{{ certificate_id }}</span></p>
+	</div>
+</body>
+</html>

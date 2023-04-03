@@ -1,0 +1,86 @@
+{% extends "user/base.html" %}
+{% load static %}
+
+{% block content %}
+<main>
+    <section class="cta_img_about">
+        <div class="contener spacer">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="cta-content text-center">
+                        <h2 class="text-light mb-5">ABOUT US</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+<!-- Baner end  -->
+<!--  FEATURED ABOUT US SECTION START -->
+
+<section class="spacer">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-12 col-md-12">
+                <div class="about_us_conten position-relative z-3 ">
+                    <div class="row About_conten_text mb-3">
+                        <div class="col-lg-12 col-md-12 col-sm-12 text-left ">
+                            <h2 ><strong>Who We Are?</strong></h2>
+                            <span class="heading-separator heading-separator-horizontal"></span>
+                        </div> 
+
+                    </div>
+                    <div class="about_detalis">
+                        <p>Blood Buddies is for public donation center with blood donation members in the changing health care system.</p>
+                        <ul class="custom-bullet-list mb-4">
+                            <li >Specialist blood donors and clinical supervision.</li>
+                            <li>Increasing communication with our members.</li>
+                            <li>High quality assessment, diagnosis and treatment.</li>
+                            <li>Examine critically to ensure alignment.</li>
+                            <li>The extra care of a multi-disciplinary team.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="about_img">
+                    <img src="{% static 'images/about_feat_bg.jpg' %}" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--  FEATURED ABOUT US SECTION END  -->
+
+
+<!--  Donation  START -->
+<section class=" spacer main_about">
+    <div class=" container">
+       <div class="row">
+        <div class="col-lg-6">
+            <div class="about_conten display align-items-center justify-content-center py-5">
+                <div class="about_left">
+                    <span class="mt-5">DONATE NOW</span>
+                    <h2 class="mt-3">Your Donation Can Make Someone’s Life Better</h2>
+                    <p class="lh-large mb-5">Lorem ipsum dolor sit amet, consectetur notted adipisicing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <a class="btn-cta-3 rounded  p-4 " href="#">Become Volunteer</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="about_right">
+    
+            </div>
+        </div>
+       </div>
+    </div>
+</section>
+<!--  Donation END  -->
+</main>
+
+{% endblock content %}
+<!-- --start footer-- -->
+
+</body>
+</html>
+
+
