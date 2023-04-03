@@ -1,195 +1,204 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blood Donation - Activism & Campaign</title>
 
-{% block header %}
+    
+        <!-- bootstrap -->
+        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="./css/bootstrap-icons.css">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <link rel="stylesheet" href="{% static 'custom.css' %}">
+        <!-- stylesheet -->
+        <link rel="stylesheet" href="{% static 'css/all.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/blood-res.css' %}">
+        <link rel="stylesheet" href="{% static 'css/blooddrop.css' %}">
         
-        <link rel="stylesheet" href="{% static 'styles.css' %}">
-        
-        <link rel="stylesheet" href='https://fonts.googleapis.com/css?family=Roboto:400,700'>
 
-        <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}" >
-
-
-        <title>{% block title %} base {% endblock title %}</title>
-        
-        <style> 
-        .logo img{
-         height:80px;
-         object-fit:cover;
-        }
-                             
-  </style> 
-        {% block extra_css %}          
-                
-        {% endblock extra_css %}
-
-    </head>
-
-{% endblock header %}
-
+    <!-- favicon.ico -->
+    <link rel="icon" href="{% static 'images/favicon.png' %}">
+    
+    {% block extra_css %}
+    
+    {% endblock extra_css %}
+    <style>
+    
+    </style>
+</head>
 <body>
-    <nav id="mainNav" class="navbar fixed-top navbar-default navbar-expand-lg navbar-light bg-light">
-        <div class="logo"><image src="{% static 'images/logo2.png' %}"></div>
-        
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-      
-        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-      
-          <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+
+    <!-- Scroll up button -->
+    <div id="scroll_up">
+        <a href="#"><i class="fa-solid fa-angle-up"></i></a>
+    </div>
+    <!-- Scroll up button -->
+<!-- start hader  -->
+<header class="bg_color ">
+    
+    <div class="container ">
+        <!-- start logo hader -->
+        <div class="row min_manu justify-content-between align-items-center py-3 ">
+            <div class="main_logo col-xxl-2  col-xl-2 col-md-3 col-lg-2  col-4 ">
+                <a href="">
+                    <img src="{% static 'images/logo2.png' %}" alt="">
+                </a>
+            </div>
+            <div class=" col-md-2 col-xxl-6 col-xl-7 col-lg-9 col-md-2  col-2 ">
+                <ul class="navigation d-flex ">
+                    <li><a href="{% url 'index' %}">Home</a></li>
+                    <li><a href="{% url 'about' %}">AboutUs</a></li>
+                    <li><a href="#">Donors</a></li>
+                    <li><a href="#">search</a></li>
+                    {% if user.is_authenticated %}
+                        <li><a href="{% url 'donation_history' user.id %}">Donation_History</a></li>
+                        <li>
+                            <a href="#" class="z-5">{{ request.user.name }}</a>
+                            <ul class="sub_manu position-absolute">
+                                <li><a href="#">Profile</a></li>
+                                <li><a href="#">Details</a></li>
+                                <li><a href="#">Element</a></li>
+                                <li><a href="{% url 'logout' %}">Logout</a></li>
+                            </ul>
+                        </li>
+                    {% else %}
+                        <li><a href="{% url 'login' %}">Sign In</a></li>
+                    {% endif %}
+                </ul>
+                <div class="icon_bars fs-2  text-center ">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
+
+                <ul class="moblie_manu z-3 ">
+                    <li ><a href="blood.html">Home</a></li>
+                    <li><a  href="#">Donors</a></li>
+                    <li><a  href="#">search</a></li>
+                    <li><a  href="#">signin</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a  href="#" class="z-5">
+                        Donor Name
+                        </a>
+                        <ul class="sub_manu position-absolute 
+                        ">
+                            <li><a href="#">CONTACT</a></li>
+                            <li><a href="#"> Details</a></li>
+                            <li><a href="#">Element</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- end logo hader  -->
+    </div>
+</header>
+
+<!-- end hader  -->
+{% block content %}
 
 
-          </ul>
-          
-          <ul class="navbar-nav form-inline my-2 my-lg-0">
-      
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'index' %}">Home</a>
-            </li>
-            
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'about' %}">About Us</a>
-            </li>
+{% endblock content %}
+<!-- slider end  -->
+</main>
+<!-- Footer start  -->
+<!-- --start footer-- -->
+<footer class="footer_main bg-dark">
 
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'login' %}">Signin</a>
-            </li>
-            
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'logout' %}">Logout</a>
-            </li>
-            
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'donation_history' request.user.id %}">Donation_History</a>
-            </li>
-      
-            
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                {{request.user.name}}
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <a class="dropdown-item" href="./index.php"><i class="fa fa-user" aria-hidden="true"></i> Profile</a>
-                <a class="dropdown-item" href="./update.php"><i class="fa fa-edit" aria-hidden="true"></i>Update Profile</a>
-                <a class="dropdown-item" href="#">
-                <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>Logout</a>
+    <section class="footer-area " >
+         <div class="container">
+              <div class="row d-flex justify-content-between ">
+                   <div class="col-lg-4 col-md-12 col-sm-6">
+                        <div class="footer-cap mb-50">
+                             <div class="footer-cap">
+                                  <div class="footer-logo col-6">
+                                       <a href="#"><img src="{% static 'images/logo2light.png' %}" alt=""></a>
+                                  </div>
+                                  <div class="footer-title text-light">
+                                       <div class="footer-para">
+                                            <p class="mb-50">Lorem ipsum dolor sit amet, consect etur adi pisicing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                       </div>
+                                  </div>
+                                  <div class="footer-social">
+                                       <a href="#"><i class="fa-brands fa-square-facebook"></i></a>
+                                       <a href="#"><i class="fa-brands fa-square-twitter"></i></a>
+                                       <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+                                       <a href="#"><i class="fa-brands fa-square-pinterest"></i></a>
+                                  </div>
+                             </div>
+                        </div>
+                   </div>
+                   <div class="col-lg-2 col-md-4 col-sm-5">
+                        <div class="single-footer-cap ">
+                             <div class="footer-title text-light">
+                                  <p class="h4 footer-main">
+                                    Links</p>
+                                  <ul>
+                                       <li><a href="#"> Home</a></li>
+                                       <li><a href="#">About Us</a></li>
+                                       <li><a href="#">Services</a></li>
+                                       <li><a href="#">Cases</a></li>
+                                       <li><a href="#">Contact Us</a></li>
+                                  </ul>
+                             </div>
+                        </div>
+                   </div>
+                   <div class="col-lg-3 col-md-4 col-sm-7">
+                        <div class="single-footer-cap">
+                             <div class="footer-title text-light">
+                                  <p class="h4 footer-main">Services</p>
+                                  <ul>
+                                       <li><a href="#">Commercial Cleaning</a></li>
+                                       <li><a href="#">Office Cleaning</a></li>
+                                       <li><a href="#">Building Cleaning</a></li>
+                                       <li><a href="#">Floor Cleaning</a></li>
+                                       <li><a href="#">Apartment Cleaning</a></li>
+                                  </ul>
+                             </div>
+                        </div>
+                   </div>
+                   <div class="col-lg-3 col-md-4 col-sm-5">
+                        <div class="single-footer-cap mb-50">
+                             <div class="footer-title text-light">
+                                  <p class="h4 footer-main">Get in Touch</p>
+                                  <ul>
+                                       <li><a href="#">152-515-6565</a></li>
+                                       <li><a href="#">Demomail@gmail.com</a></li>
+                                       <li><a href="#">New Orleans, USA</a></li>
+                                  </ul>
+                             </div>
+                        </div>
+                   </div>
               </div>
-            </li>   
-          </ul>
-        </div>
-      </nav> 
+         </div>
+    </section>
 
-    {% block content %}
-    
-    {% endblock content %}
+    <!-- --start footer bottom-- -->
+    <section class="footer-bottom-area">
+         <div class="container">
+              <div class="footer-border">
+                   <div class="row d-flex align-items-center">
+                        <div class="col-xl-12">
+                             <div class="footer-copy-right text-center">
+                                  <p>Copyright © <span>2023</span> <i class="fa-regular fa-heart"></i> <span>by <a href="#">BloodDrop</a></span></p>
+                                  
+                             </div>
+                        </div>
+                   </div>
+              </div>
+         </div>
+    </section>
+    <!-- --end footer bottom-- -->
+</footer>
 
-    {% block footer %}
-
-<section class="">
-      <!-- Footer -->
-      <footer class="bg-light text-danger">
-        <!-- Grid container -->
-        <div class="container p-4">
-          <!--Grid row-->
-          <div class="row">
-            <!--Grid column-->
-            <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
-              <h5 class="text-danger">Footer Content</h5>
-    
-              <p>
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste atque ea quis
-                molestias. Fugiat pariatur maxime quis culpa corporis vitae repudiandae
-                aliquam voluptatem veniam, est atque cumque eum delectus sint!
-              </p>
-            </div>
-            <!--Grid column-->
-    
-            <!--Grid column-->
-            <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-              <h5 class="text-uppercase">Links</h5>
-    
-              <ul class="list-unstyled mb-0">
-                <li>
-                  <a href="#!" class="text-danger">Link 1</a>
-                </li>
-                <li>
-                  <a href="#!" class="text-danger">Link 2</a>
-                </li>
-                <li>
-                  <a href="#!" class="text-danger">Link 3</a>
-                </li>
-                <li>
-                  <a href="#!" class="text-danger">Link 4</a>
-                </li>
-              </ul>
-            </div>
-            <!--Grid column-->
-    
-            <!--Grid column-->
-            <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-              <h5 class="text-uppercase mb-0">Links</h5>
-    
-              <ul class="list-unstyled">
-                <li>
-                  <a href="#!" class="text-danger">Link 1</a>
-                </li>
-                <li>
-                  <a href="#!" class="text-danger">Link 2</a>
-                </li>
-                <li>
-                  <a href="#!" class="text-danger">Link 3</a>
-                </li>
-                <li>
-                  <a href="#!" class="text-danger">Link 4</a>
-                </li>
-              </ul>
-            </div>
-            <!--Grid column-->
-          </div>
-          <!--Grid row-->
-        </div>
-        <!-- Grid container -->
-    
-        <!-- Copyright -->
-        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-          © 2020 Copyright:
-         
-        </div>
-        <!-- Copyright -->
-      </footer>
-      <!-- Footer -->
-    </section> 
-
-    {% endblock footer %} 
-    	    <!-- JQuery File -->
-        <script type="text/javascript" src="{% static 'jquery/jquery.js' %}"></script>
-    
-          <!-- BootStrap JS File-->
-        <script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
-          
-          <!-- Fontawesome Icon JS-->
-        <script defer src="{% static 'fontawesome/js/all.js' %}"></script>
-  
-      <script>
-          
-        
-          $(window).on('resize', function () {
-            if ($(window).width() > 768) $('#sidebar-collapse').collapse('show')
-          })
-          $(window).on('resize', function () {
-            if ($(window).width() <= 767) $('#sidebar-collapse').collapse('hide')
-          })
-        </script>
+<!-- --end footer-- -->
+ <!-- bootstrap -->
+ <script src="{% static 'js/jquery-3.6.3.min.js' %}"></script>    
+ <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+ <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+ <script src="{% static 'js/blood.js' %}"></script>
 </body>
-</html> 
-
+</html>

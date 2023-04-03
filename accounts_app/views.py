@@ -1,11 +1,10 @@
-from django.views.generic import CreateView
+from django.views.generic import CreateView,ListView
 from django.views import View
 from django.views.generic.base import TemplateView
 from .form import SignUpForm,LoginForm,OTPForm
 from django.http import HttpResponse
 from django.urls import reverse
 from django.views.generic.edit import CreateView,FormView
-from django.core.mail import send_mail
 from django.conf import settings
 from datetime import datetime
 from django.contrib import messages
@@ -22,18 +21,19 @@ from reportlab.pdfgen import canvas
 from PIL import Image, ImageDraw, ImageFont
 from django.views.generic import DetailView
 from accounts_app.models import User
-from bloodbank.models import Donation
+from bloodbank.models import Donation,CampSchedule
 from django.contrib.auth.views import LogoutView
-from django.urls import reverse_lazy
-
+from django.template.loader import render_to_string
+from django.core.mail import EmailMessage
+from datetime import date
 
 # index view for user 
 class IndexView(TemplateView):   
-    template_name="user/index.html"
+    template_name="user/index1.html"
 
 
 class AboutView(TemplateView):
-    template_name="user/about.html"
+    template_name="user/about1.html"
 
 
 class SignUpView(CreateView):
@@ -49,12 +49,15 @@ class SignUpView(CreateView):
         otp = random.randrange(111111, 999999)
 
         subject = 'Your OTP for logging in to our site'
-        message = f'Your OTP is: {otp}'
+        context = {"otp": otp, "user": user, "year": (date.today()).year}
+        message = render_to_string("user/otp_template.html", context)
+        # Create the email message
         from_email = settings.EMAIL_HOST_USER
-        recipient_list = [email]
-
-        send_mail(subject, message, from_email, recipient_list)
-
+        to_email = [email]  # pass a list of email addresses
+        otp_email = EmailMessage(subject, message, from_email, to_email)
+        otp_email.content_subtype = "html"
+        # Send the email
+        otp_email.send()
 
         user.otp = otp 
         user.otp_created_at = datetime.today()
@@ -150,3 +153,46 @@ class LogoutView(View):
         logout(request)
         messages.info(request, "You have successfully logged out.")
         return redirect("index")
+
+class CampList(ListView):
+    model = CampSchedule
+    context_object_name = 'camp_obj'
+    template_name='user/index1.html'
+   
+
+
+
+# def post(self, request, *args, **kwargs):
+#         serializer = self.serializer_class(
+#             data=request.data, context={"request": request}
+#         )
+#         serializer.is_valid(raise_exception=True)
+#         user = serializer.save()
+
+#         user.otp_key = random_hex(20)
+#         user.save()
+
+#         totp = TOTPVerification(user.otp_key).generate_token()
+#         user_otp = UserOTP()
+
+#         subject = "Confirm your email"
+#         template = "registration/reset-password.html"
+#         user_otp.send_otp_in_email(request, user, totp, template, subject)
+
+#         user_otp.send_otp_in_sms(user, "Registartion", totp)
+
+#         welcome_subject = "Welcome to BloodDrop"
+#         context = {"user": user,"year": (date.today()).year}
+#         welcome_message = render_to_string("registration/bustto_welcome.html", context)
+#         welcome_email = EmailMessage(
+#             welcome_subject,
+#             welcome_message,
+#             settings.EMAIL_HOST_USER,
+#             [user.email],
+#         )
+#         welcome_email.content_subtype = "html"
+#         welcome_email.send()
+
+#         return Response(
+#             {"detail": "User has been registered."}, status=status.HTTP_200_OK
+#         )

@@ -33,6 +33,8 @@ class CampSchedule(models.Model):
 
 class Donation(models.Model):
     donor = models.ForeignKey(User, on_delete=models.CASCADE, related_name='donation')
-    donation_date = models.DateTimeField(auto_now_add=True)
+    donation_date = models.DateTimeField()
     bloodbank = models.ForeignKey(BloodBank, related_name='donation', on_delete=models.CASCADE)
 
+    class Meta:
+        get_latest_by = '-donation_date'

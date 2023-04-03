@@ -1,0 +1,336 @@
+{% extends "user/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<style>
+.ad-banner {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    margin-left:500px;
+  }
+  
+  .ad-banner-text {
+    max-width: 40%;
+    text-align: right;
+    animation: fadeInUp 1s ease-in-out;
+  }
+  
+  .ad-banner-text h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .ad-banner-text p {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .ad-banner-button {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background-color: white;
+    color: red;
+    text-decoration: none;
+    border-radius: 25px;
+    transition: background-color 0.2s ease-in-out;
+  }
+  
+  .ad-banner-button:hover {
+    background-color: white;
+  }
+  
+  .ad-banner img {
+    max-width: 50%;
+    animation: zoomIn 1s ease-in-out;
+  }
+  .spacer {
+    background-repeat: no-repeat; 
+    background-size: 100% 540px;
+  }
+  
+  @keyframes zoomIn {
+    from {
+      transform: scale(0);
+    }
+    to {
+      transform: scale(1);
+    }
+  }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  /* For screens smaller than 768px */
+@media (max-width: 767px) {
+  .ad-banner {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+  }
+
+  .ad-banner-text {
+    max-width: 100%;
+    margin-bottom: 2rem;
+  }
+
+  .ad-banner img {
+    max-width: 80%;
+  }
+}
+
+/* For screens between 768px and 991px */
+@media (min-width: 768px) and (max-width: 991px) {
+  .ad-banner-text {
+    max-width: 50%;
+  }
+
+  .ad-banner img {
+    max-width: 40%;
+  }
+}
+
+/* For screens larger than 992px */
+@media (min-width: 992px) {
+  .ad-banner-text {
+    max-width: 40%;
+  }
+
+  .ad-banner img {
+    max-width: 50%;
+  }
+}
+
+</style>
+{% endblock extra_css %}
+{% block content %}
+    <!-- Baner start -->
+     
+<main>
+    <section class="baner">
+        <div class="row">
+            <div class="col-xl-12  p-0 col-12">
+                <div class="layer   position-relative">
+                    <img src="{% static 'images/hom2.jpg' %}" alt="">
+                    <div class="contener">
+                        <div class="row">
+                             <div class="col-xl-12 col-10 ">
+                                 <div class="baner_conten position-absolute   d-flex justify-content-center  align-items-center ">
+                                     <div class="text_contner  text-center d-flex justify-content-center align-items-center  w-100 h-100">
+                                         <select name="" id="" class="baner_select1 m-2  px-5   boder-0 ">
+                                            <option value="">-Select--</option>
+                                            <option value="">heloo</option>
+                                            <option value="">heloo</option>
+                                            <option value="">heloo</option>
+                                            <option value="">heloo</option>
+                                         </select>
+
+                                         <select name="" id="" class="baner_select2 m-2 p-2  px-5">
+                                            <option value="">AB-</option>
+                                            <option value="">O-</option>
+                                            <option value="">O+</option>
+                                            <option value="">A+</option>
+                                         </select>
+                                     
+                                         <a href="#" class="bten_conten fs-3 rounded bg-danger text-center"> Search </a>
+                                         
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>
+                      </div>
+                </div>
+            </div>
+        </div>
+    </section>
+<!-- Baner end  -->
+
+<!--  FEATURED ABOUT US SECTION START -->
+<section class="spacer" style="background-image: url('{% static 'images/banner3.jpg' %}')">
+    <div class="container">
+      <div class="row">
+            <div class="ad-banner">
+              <div class="ad-banner-text">
+                <h2>Join Our Next Blood Donation Camp</h2>
+                <p>Help save lives by donating blood</p>
+                <a href="#" class="ad-banner-button">Schedule Now</a>
+              </div>
+        </div>
+      </div>
+    </div>
+  </section>
+<!--  FEATURED ABOUT US SECTION END  -->
+
+<!-- cta start  -->
+<section class="cta_img"> 
+    <div class="container spacer">
+            <div class="col-xl-12  col-12">
+                <div class="cta-content text-center align-items-center">
+                    <h2 class="text-light mb-5 text-center  ">Join with us and save life</h2>
+                    <a class="btn-cta-3 rounded  p-4 mt-5" href="#">Become Volunteer</a>
+                </div>
+            </div>
+    </div>
+</section> 
+
+<!-- cta end -->
+
+<!--  SECTION CAMPAIGNS  START -->
+ <section class="spacer">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-5 col-lg-5 col-md-12  col-12">
+                <div class="row ">
+                    <div class="campaign_text pt-3">
+                        <h2 class="fw-bolder ">OUR CAMPAIGNS</h2>
+                        <h4 class="mt-4 mb-5">
+                            <small>All over the world we have arranged total sixty thousands donation campaign and visit thousands of other venues on various occasions. </small>
+                        </h4>   
+                        <a href="{% url 'login' %}" class="bten_conten fs-3 mb-md-5 rounded bg-danger text-center"> Become a BloodBank </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-7 col-lg-7 col-md-12  col-12   d-xl-flex d-md-flex  mt-5">
+                <div class="camaping_img  col-xl-5 col-lg-6 col-md-6 col-12 m-0">
+                    <a href=""><img src="{% static 'images/event_3.jpg' %}" alt="" class="mt"></a>
+                </div>
+                <div class="camaping_main">
+                   
+                    <div class="event-info p-4 "> 
+                        <a class="event-date fs-4 fw-bolder" href="#"><i class="fa-solid fa-calendar-days"></i> 11 March, 2018</a>
+                        <h4 class="mt-2 mb-2" > 
+                            <a href="#">Free Group Checking</a>
+                        </h4>
+                        <div class="event-exceprt lh-10  mb-4 mt-3" >Lorem ipsum dolor sit amet turadipi scing elit lobort issim consecte lodign pharetra. Lobort qssim tronsecte diagnosis sharetrx mauris gone do.</div>                                            <div class="event-time m">
+                            <a href="#"><i class="fa-solid fa-clock ms-"></i>10.00 - 3.00</a>
+                            <a href="#"> <i class="fa fa-map-marker ms-2"></i> California, USA</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section> 
+<!--  SECTION CAMPAIGNS  END  -->
+
+<!--  SECTION APPOINTMENT IMG START-->
+<section class="">
+
+</section>
+<!--  SECTION APPOINTMENT IMG END-->
+
+  <!-- SECTION APPOINTMENT BOX -->
+    <section class="spacer appoment_conten ">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-12   col-12">
+                    <div class="appoment_conten_text z-3 ">
+                        <div class="row  mb-3">
+                            <div class="col-lg-12 col-md-12 col-sm-12 text-left About_conten_text">
+                                <h4>Good To Know</h4>
+                                <span class="heading-separator heading-separator-horizontal"></span>
+                                <h2 ><strong>Helpful Information</strong></h2>
+                              
+                            </div> 
+
+                        </div>
+                        <div class="about_detalis">
+                            
+                            <ul class="custom-bullet-list mb-4">
+                                <li >Maintain a healthy iron level by eating iron rich foods.</li>
+                                <li>Drink an extra 16 oz. of water prior to your donation.</li>
+                                <li>Avoid alcohol consumption before your blood donation.</li>
+                                <li>Remember to bring the donor card or national ID/Passport.</li>
+                                <li>Finally, Try to get a good night sound sleep after donation.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-12 col-12 ">
+                    <div class="appointment-form-wrapper  text-center mt-sm-0">
+                        <h3 class="join-heading p-4 text-light">REQUEST APPOINTMENT</h3>
+                        <form class="appoinment-form p-3 ">
+                                    <div class=" d-xl-flex  ">    
+                                        <input placeholder="Name" type="text">
+
+                                        <input placeholder="Email" type="email">
+                                    </div>
+                                    <div class="d-flex ">
+                                        <input  
+                                        placeholder="Phone" type="text" fdprocessedid="03z29j">
+                                        <select  name="your_center" >
+                                                <option>Donation Center</option>
+                                                <option>Los Angles</option>
+                                                <option>California</option>
+                                        </select>
+                                    </div>
+                                    <div class="d-flex"> 
+                                        <input id="your_date" class="" placeholder="Date" type="text" fdprocessedid="sna4ok">
+                                        <input id="your_time" placeholder="Time" type="text">
+                                    </div>
+                             
+                                    <textarea id="textarea_message" class="form-contr " placeholder="Your Message..."></textarea>
+                            
+                                    <div  class="d-flex align-items-center justify-content-center">        
+                                        <a href="#" class="bten_conten fs-3 mt-5 rounded bg-danger text-center"> Get Appointment </a>
+                                    </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> 
+<!--  SECTION APPOINTMENT BOX -->
+
+<!-- slider Start  -->
+
+<section class="spacer container">
+   
+            <div class="main_conten ">
+                <div class="main_hadig">
+                    <h2 class="text-center mb-2  text-danger  ">DONATE NOW</h2>
+                    <p class="m-auto text-center align-items-center fw-bolder fs-1">Popular Campaigns</p>
+                </div>
+            </div>
+
+            <div class="owl-carousel owl-theme ms-10" id="slider">
+                <div class="singal_item ">
+                    <div class="item"><img src="{% static 'images/doctor-working-with-donor-blood-2021-08-29-00-33-17-utc.jpg' %}" alt=""></div>
+                    <!-- <div class="contin_silder text-center align-items-center pb-5 pt-4 ">
+                        <h2 class="fw-bolder">Opening Donation </h2>
+                        <p class="mb-4 pb-4"> Aliq is notm hendr erit a augue insu image pellen tes.</p>
+                        <a href="#" class="bten_conten fs-3 mt-5 rounded bg-danger text-center">DONATE NOW  </a>
+                    </div> -->
+                </div>
+                <div class="singal_item">
+                    <div class="item"><img src="{% static 'images/take-part-in-blood-donation-2021-08-29-00-34-07-utc.jpg' %}" alt=""></div>
+                    
+                </div>
+                <div class="singal_item">
+                    <div class="item"><img src="{% static 'images/doctor-holding-blood-plazma-2021-08-29-00-34-07-utc.jpg' %}" alt=""></div>
+                    
+                </div>
+            </div>  
+</section>
+</main>
+
+
+
+
+
+
+{% endblock content %}

@@ -4,7 +4,8 @@ import random
 from datetime import datetime
 from django.core.mail import send_mail
 from django.conf import settings
-
+from django.template.loader import render_to_string
+from django.core.mail import EmailMessage
 
 class SignUpForm(forms.ModelForm):
     group = forms.ChoiceField(choices=BloodGroup.BLOOD_GROUP_CHOICES)
@@ -38,12 +39,18 @@ class LoginForm(forms.Form):
             print(f"Email :- {user.email}", f"This is from Blood drop for OTP. Your OTP is :- {otp}")
 
             subject = 'Your OTP for logging in to our site'
-            message = f'Your OTP is: {otp}'
+            context = {"otp": otp, "user": user}
+            message = render_to_string("user/otp_template.html", context)
+
+            # Create the email message
             from_email = settings.EMAIL_HOST_USER
-            recipient_list = [email]
+            to_email = [email]  # pass a list of email addresses
+            otp_email = EmailMessage(subject, message, from_email, to_email)
+            otp_email.content_subtype = "html"
 
-            send_mail(subject, message, from_email, recipient_list)
-
+            # Send the email
+            otp_email.send()
+           
             user.otp = otp 
             user.otp_created_at = datetime.today()
             user.save() 

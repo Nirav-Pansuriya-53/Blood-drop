@@ -84,7 +84,7 @@
                   <h2>A+ <i class="fas fa-tint"></i></h2>
               </div><br><br>
               <div>
-                  {{A1.unit}}ml
+                {{ a_positive_count }}ml
               </div>                            
           </div>
         </div>
@@ -96,7 +96,7 @@
                       <h2>B+ <i class="fas fa-tint"></i></h2>
                   </div><br><br>
                   <div>
-                    {{B1.unit}}ml
+                    {{ blood_count.B2 }}ml
                   </div>                            
               </div>
             </div>
@@ -185,7 +185,6 @@
     <form class="form-inline" method="POST">
         {% csrf_token %}
         <div class="form-group mx-sm-3 mb-6 form">
-
             <select name="bloodgroup" class="form-control">
                 <option disabled="disabled" selected="selected">Choose a Blood Group</option>
                 <option>O+</option>
@@ -199,16 +198,11 @@
             </select>
           </div>
         <div class="form-group mx-sm-3 mb-6">
-
           <input type="number" class="form-control" name="unit" placeholder="*** ml">
         </div>
         <button type="submit" class="btn btn-danger">Update Stock</button>
-      </form>
+    </form>
 </div>
-
-
-</div>
-
-
+<hr>
 
 {% endblock content %}
