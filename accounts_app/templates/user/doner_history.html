@@ -4,11 +4,18 @@
 
 <style>
   table{
-    border: 2px solid red;
     border-radius: 50px ;
   }
   thead{
     background:rgb(255, 179, 179);
+  }
+  h1{
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    margin-top:40px;
+  }
+  table{
+    margin-top:20px;
+    margin-left:50px;
   }
 </style>
 
@@ -17,23 +24,23 @@
 {% block content %}
 <br><br>
 <div class="container">
-    <h1>Donation History</h1>
+    <h1 class="text-center fw-bold text-danger">Donation History</h1>
     <br>
-    <table class="table table-striped ">
+    <table class="table table-striped shadow p-4 mb-4 bg-white p-4">
         <thead class="text-white bg-danger">
           <tr>
             <th scope="col">Name</th>
             <th scope="col">Bloodgroup</th>
             <th scope="col">Donation Date</th>
             <th scope="col">Blood Bank</th>
-            <th scope="col">Download Certificate</th>
+            <th scope="col">Certificate</th>
           </tr>
         </thead>
         <tbody>
                 {% if donations %}
                     {% for donation in donations %}
                     <tr>
-                        <td>{{ user.name }}</td>
+                        <td>{{ user.name|title }}</td>
                         <td>{{ user.blood_group.blood_group }}</td>
                         <td>{{ donation.donation_date }} </td>
                         <td>{{ donation.bloodbank }}</td>

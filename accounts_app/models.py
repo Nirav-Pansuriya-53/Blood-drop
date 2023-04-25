@@ -14,6 +14,11 @@ class User(AbstractBaseUser, Address):
     is_admin = models.BooleanField(default=False)
     otp_create_at = models.DateTimeField(null=True, blank=True)
     otp = models.IntegerField(null=True, blank=True)
+    age = models.IntegerField(null=True, blank=True)
+    weight= models.IntegerField(null=True, blank=True)
+    is_bloodbank = models.BooleanField(default=False, null=True, blank=True)
+    logo = models.ImageField(upload_to='bloodbank_logo/', null=True, blank=True)
+
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
@@ -61,3 +66,12 @@ class BloodGroup(models.Model):
     
     user = models.OneToOneField(User, related_name='blood_group', on_delete=models.CASCADE)
     blood_group = models.CharField(max_length=3, choices=BLOOD_GROUP_CHOICES)
+
+REQUEST_STATUS_CHOICES = [    ('Pending', 'Pending'),    ('Accepted', 'Accepted'),    ('Rejected', 'Rejected')]
+class BloodRequest(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    bloodbank = models.ForeignKey(User, on_delete=models.CASCADE, related_name='blood_requests')
+    blood_group = models.CharField(max_length=3, choices=BloodGroup.BLOOD_GROUP_CHOICES)
+    quantity = models.IntegerField()
+    status = models.CharField(choices=REQUEST_STATUS_CHOICES, max_length=10, default='Pending')
+    requested_at = models.DateTimeField(auto_now_add=True)

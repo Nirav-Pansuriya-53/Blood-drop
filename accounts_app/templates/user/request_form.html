@@ -1,0 +1,47 @@
+  {% extends "user/base.html" %}
+
+  {% block content %}
+  <!-- SECTION APPOINTMENT BOX -->
+  <section class="spacer appoment_conten ">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-12   col-12">
+                <div class="appoment_conten_text z-3 ">
+                    <div class="row  mb-3">
+                        <div class="col-lg-12 col-md-12 col-sm-12 text-left About_conten_text">
+                            <h4>Good To Know</h4>
+                            <span class="heading-separator heading-separator-horizontal"></span>
+                            <h2 ><strong>Helpful Information</strong></h2>
+                          
+                        </div> 
+
+                    </div>
+                    <div class="about_detalis">
+                        
+                        <ul class="custom-bullet-list mb-4">
+                            <li >Maintain a healthy iron level by eating iron rich foods.</li>
+                            <li>Drink an extra 16 oz. of water prior to your donation.</li>
+                            <li>Avoid alcohol consumption before your blood donation.</li>
+                            <li>Remember to bring the donor card or national ID/Passport.</li>
+                            <li>Finally, Try to get a good night sound sleep after donation.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12 col-12 ">
+                <div class="appointment-form-wrapper  text-center mt-sm-0">
+                    <h3 class="join-heading p-4 text-light">MAKE BLOOD REQUEST</h3>
+                    
+                                
+                                <form method="post" novalidate>
+                                    {% csrf_token %}
+                                    {{ form.as_p }}
+                                    <button type="submit" class="btn btn-danger">Request</button>
+                                </form>
+            </div>
+        </div>
+    </div>
+</section> 
+
+{% endblock content %}

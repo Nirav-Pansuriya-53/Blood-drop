@@ -2,18 +2,18 @@
 
 {% block extra_css %}
 <style>
-  .donation-table {
-    border-collapse: collapse;
-    width: 100%;
+ 
+  thead{
+    background:rgb(255, 179, 179);
   }
-  .donation-table th, .donation-table td {
-    padding: 8px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
+  h1{
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    margin-top:40px;
   }
-  .donation-table th {
-    background-color: #f2f2f2;
-    font-weight: bold;
+  table{
+    margin-top:20px;
+    margin-left:50px;
+    border-radius: 50px ;
   }
 </style>
 {% endblock extra_css %}
@@ -21,23 +21,29 @@
 {% block content %}
 
 <div class="container">
-    <h1>Donation History</h1>
-    <br>
-    <table class="table table-striped">
-      <thead>
+  <h1 class="text-center fw-bold text-danger">Donation History</h1>
+  <br>
+  <table class="table table-striped shadow p-4 mb-4 bg-white p-4">
+      <thead class="text-white bg-danger">
         <tr>
           <th>Donor Name</th>
           <th>Donation Date</th>
+          <th>Email</th>
+          <th>Phone No.</th>
           <th>Blood Group</th>
+          <th>City</th>
         </tr>
       </thead>
       <tbody>
-        {% for donation in donation_data %}
-          <tr>
-            <td>{{ donation.donor_name|title }}</td>
-            <td>{{ donation.donation_date|date }}</td>
-            <td>{{ donation.blood_group|default:"Unknown" }}</td>
-          </tr>
+        {% for blood in bloodbank %}
+        <tr>
+          <td>{{blood.donor.name|title}}</td>
+          <td>{{blood.donation_date|date}}</td>
+          <td>{{blood.donor}}</td>
+          <td>{{blood.donor.phone_number}}</td>
+          <td>{{blood.donor.blood_group.blood_group}}</td>
+          <td>{{blood.donor.city|title}}</td>
+        </tr>
         {% endfor %}
        
       </tbody>

@@ -24,7 +24,7 @@
       {% for user in object_list %}
           <div class="card ">
             <div class="card-header bg-danger text-center">
-              <h1 class="card-title text-white"><b>{{user.name}}</b></h1>
+              <h1 class="card-title text-white"><b>{{user.name|title}}</b></h1>
             </div>
 
             <div class="card-header">
@@ -36,43 +36,46 @@
               <li class="list-group-item">Mobile No :- <b>{{ user.phone_number }}</b></li>
               <li class="list-group-item">Address :- <b>{{ user.city|title }}, {{ user.state|title }} {{ user.pincode }}</b></li>
               
-              {% if user.donation.exists %}
-                {% with latest_donation=user.donation.latest %}
-                  
-                  <li class="list-group-item">
-                    Latest Donation :- <b>{{ latest_donation.donation_date|date }}</b>
-                  </li>
-
-                  <li class="list-group-item">
-                    BloodBank :- <b>{{ latest_donation.bloodbank|title }}</b>
-                  </li>
-                  {% with next_donation=latest_donation.donation_date|add:timedelta %}
-                        <li class="list-group-item">
-                          Next Donation :- <b>{{ next_donation|date}}</b>
+              {% if user.latest_donation_date %}
+                <li class="list-group-item">
+                    Latest Donation :- <b>{{ user.latest_donation_date|date }}</b>
+                </li>
+                        
+                <li class="list-group-item">
+                    BloodBank :- <b>{{ user.donation.first.bloodbank|title }}</b>
+                </li>
+                        
+                {% with next_donation=user.latest_donation_date|add:timedelta %}
+                    <li class="list-group-item">
+                        Next Donation :- <b>{{ next_donation|date}}</b>
+                    </li>
+                                              
+                    {% if next_donation|date <= today|date %}
+                        <li class="list-group-item text-center">
+                            <button type="submit" class="btn btn-danger" ><a href="{% url 'donation_form' %}">Donat Now</a></button>
                         </li>
-                       
-                        {% if next_donation|date <= today|date %}
-                          <li class="list-group-item text-center">
-                            <a href="{% url 'donation_form' %}"><button type="submit" class="btn btn-danger" >Donat Now</button></a>
-                          </li>
-                        {% else %}
-                          <script>
+                    {% else %}
+                        <script>
                             var user = ('{{user.name}}')
                             var nextDonation = ('{{next_donation|date}}')
                             alert(user + ' you can donate the blood after ' + nextDonation + ' date.');
-                          </script>
-
-                          <li class="list-group-item text-center">
+                        </script>
+                        
+                        <li class="list-group-item text-center">
                             <a href="{% url 'donation_form' %}"><button type="submit" class="btn btn-danger" disabled>Donat Now</button></a>
-                          </li>
-                        {% endif %}
-                  {% endwith %}
+                        </li>
+                    {% endif %}
                 {% endwith %}
               {% else %}
                 <script>
-                  alert('No donation found.');
+                    alert('No donation found.');
                 </script>
+                <li class="list-group-item text-center">
+                  <a href="{% url 'donation_form' %}"><button type="submit" class="btn btn-danger">Donat Now</button></a>
+                </li>
               {% endif %}
+
+          
             </ul>
           </div>
       {% endfor %}

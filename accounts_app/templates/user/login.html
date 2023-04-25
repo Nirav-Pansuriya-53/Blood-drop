@@ -5,72 +5,99 @@
 {% block extra_css %}
 {{ block.super }}
 <style>
-  h1{
-    text-align : center
-}
-form {
-    max-width: 500px;
-    padding:100px;
-  }
+ 
   
-  label, input, textarea {
-    display:block;            
-    margin-bottom: 10px;
-    width:100%
-  }
-  label
-  {
-    font-weight: bold;
-  }
-  input, textarea {
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  button {
-    background-color:	#ff0040;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  button:hover {
-    background-color: #45a049;
-  } 
-  .baner_conten{
-    left: 50%;
-    top: 5%;
-    transform: translate(-50%) !important;
-  }
-</style>
+  .animated-bg {
+     background-size: cover;
 
+    }
+    
+    .form-container {
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 50px;
+      background-color: rgba(255, 255, 255, 0.7);
+      border-radius: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      opacity: 0.9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 50px;
+      margin-bottom:150px;
+
+    }
+
+    form {
+      max-width: 500px; /* adjust this value as needed */
+      width: 100%;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+  
+    label {
+      display: block;
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    
+    input[type="email"],
+    input[type="password"] {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 20px;
+      border: none;
+      background-color: #eee;
+    }
+    
+    button[type="submit"] {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 20px;
+      border: none;
+      background-color: #dc3545;
+      color: #fff;
+    }
+    h1{
+      font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    }
+    @media (max-width: 600px) {
+      .form-container {
+        max-width: 90%;
+      }
+    }
+    
+    @keyframes background {
+      from { background-color: rgba(0, 0, 0, 0.7); }
+      to { background-color: rgba(255, 255, 255, 0.7); }
+    }
+  </style>
 {% endblock extra_css %}
 
-       
 {% block content %}
-<section class="baner">
-  <div class="row">
-      <div class="col-xl-12  p-0 col-12">
-          <div class="layer   position-relative">
-              <img src="{% static 'images/heart_bg.jpg' %}" alt="">
-             
-                           <div class="baner_conten position-absolute   d-flex justify-content-center  align-items-center ">
-                               <div class="text_contner  text-center d-flex justify-content-center align-items-center  w-100 h-100">
-                                  <form method="post" novalidate>
-                                  <h1>SignIn</h1>                              
-                                  {% csrf_token %}
-                                  {{ form.as_p }}
-                                  <button type="submit">Send OTP</button>
-                                  <p class="text-center text-danger">Don't have an account? <a href=" {% url 'signup' %} ">Create an account</a>.</p>
-                                </form>
-                              </div>
-                          </div>
-          </div>
-      </div>
-  </div>
-</section>
+<body class="animated-bg">
+           
+<div class="form-container">
+  <form method="post" novalidate>
+    <h1 class="text-center fw-bold text-danger">Signin</h1><br>
+
+    {% csrf_token %}
+
+    {{form.as_p}}
+
+    <button type="submit" class="btn btn-danger">Sign in</button>
+    <p class="text-center">Don't have an account? <a href=" {% url 'signup' %} ">Sign up</a>.</p>
+
+  </form>
+</div>
   
 {% endblock content %}
   

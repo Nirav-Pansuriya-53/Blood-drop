@@ -1,0 +1,25 @@
+{% extends "admin/base.html" %}
+
+{% block extrahead %}
+  {{ block.super }}
+  <link rel="stylesheet" type="text/css" href="{% static 'admin/css/themes.css' %}">
+{% endblock %}
+
+{% block footer %}
+  {{ block.super }}
+  <div class="theme-switcher">
+    {% url 'admin:theme' as theme_url %}
+    <form action="{{ theme_url }}" method="post">
+      {% csrf_token %}
+      <label for="id_theme">{% trans "Theme:" %}</label>
+      <select id="id_theme" name="theme">
+        {% for theme, display_name in theme_choices %}
+          <option value="{{ theme }}" {% if theme == current_theme %}selected{% endif %}>
+            {{ display_name }}
+          </option>
+        {% endfor %}
+      </select>
+      <button type="submit">{% trans "Change" %}</button>
+    </form>
+  </div>
+{% endblock %}

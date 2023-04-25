@@ -1,0 +1,142 @@
+{% extends "bloodbank/base_bloodbank.html" %}
+
+{% block extra_css %}
+<style>
+
+.animated-bg {
+   background-size: cover;
+  }
+  
+  .form-container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    opacity: 0.9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+  }
+
+  form {
+    max-width: 500px; /* adjust this value as needed */
+    width: 100%;
+  }
+  .form-group {
+    margin-bottom: 20px;
+  }
+ 
+  label {
+    display: block;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  input[type="text"],
+  input[type="password"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 20px;
+    border: none;
+    background-color: #eee;
+  }
+  input[type="date"],
+  input[type="time"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 20px;
+    border: none;
+    background-color: #eee;
+  }
+  
+  button[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 20px;
+    border: none;
+    background-color: #dc3545;
+    color: #fff;
+  }
+    #id_pincode 
+    {
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    padding: 8px;
+    background-color: #eee;
+    width:450px;
+    }
+    #id_address 
+    {
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    padding: 8px;
+    background-color: #eee;
+    width:450px;
+    height:10vh;
+    }
+
+    select {
+        font-size: 16px;
+        color: #333;
+        background-color: #eee;
+        border: 1px solid #ccc;
+        border-radius: 20px;
+        padding: 8px;
+        width: 450px;
+        overflow: hidden; /* add overflow hidden to hide the options by default */
+        height: 40px; /* set a fixed height for the dropdown */
+        transition: height 0.2s ease; /* add transition to animate the height change */
+    }
+
+    select:hover,
+    select:focus {
+        height: 50px; /* increase the height on hover or focus */
+    }
+    h1{
+      font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    }
+  
+  @media (max-width: 600px) {
+    .form-container {
+      max-width: 90%;
+    }
+  }
+  
+  @keyframes background {
+    from { background-color: rgba(0, 0, 0, 0.7); }
+    to { background-color: rgba(255, 255, 255, 0.7); }
+  }
+  .error-message {
+    color: red;
+  }
+</style>
+{% endblock extra_css %}
+
+{% block content %}
+<body class="animated-bg">
+         
+    <div class="form-container">
+
+      <form method="post" novalidate>
+      <h1 class="text-center fw-bold text-danger">Schedule Camp</h1>
+      <br>
+        {% csrf_token %}
+    
+        {{form.as_p}}
+    
+        <button type="submit" class="btn btn-danger">Schedule</button>
+      </form>
+    </div>
+  
+{% endblock content %}

@@ -43,7 +43,10 @@
           
           button:hover {
             background-color: #45a049;
-          }      
+          }   
+          h1{
+            font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+          }   
       
     </style>
 </head>
@@ -51,7 +54,7 @@
 <div class="container" id="container">
     <div class="form-container sign-up-container">
       <form action="" method="post" novalidate>
-      <h1>Verify Otp </h1>
+        <h1 class="text-center fw-bold text-danger">Verify OTP</h1><br>
 
         {% for message in messages %}
           <div class="alert alert-{{ message.tags }}">

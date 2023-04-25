@@ -1,0 +1,133 @@
+{% extends "bloodbank/base_bloodbank.html" %}
+
+{% block extra_css %}
+<style>
+
+.animated-bg {
+   background-size: cover;
+  }
+  
+  .form-container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    opacity: 0.9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 110px;
+  }
+
+  form {
+    max-width: 500px; /* adjust this value as needed */
+    width: 100%;
+  }
+  .form-group {
+    margin-bottom: 20px;
+  }
+ 
+  label {
+    display: block;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  input[type="text"],
+  input[type="password"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 20px;
+    border: none;
+    background-color: #eee;
+  }
+  input[type="date"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 20px;
+    border: none;
+    background-color: #eee;
+  }
+  
+  button[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 20px;
+    border: none;
+    background-color: #dc3545;
+    color: #fff;
+  }
+    #id_pincode 
+    {
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    padding: 8px;
+    background-color: #eee;
+    width:450px;
+    }
+    #id_address 
+    {
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    padding: 8px;
+    background-color: #eee;
+    width:450px;
+    height:10vh;
+    }
+
+    input[type="email"],
+    input[type="tel"] {
+      background-color: #eee;
+      border: none;
+      border-bottom: 1px solid #ccc;
+      color: #333;
+      font-size: 16px;
+      padding: 10px;
+      width: 100%;
+      margin-bottom: 20px;
+      border-radius: 20px;
+
+    }
+  @media (max-width: 600px) {
+    .form-container {
+      max-width: 90%;
+    }
+  }
+  
+  @keyframes background {
+    from { background-color: rgba(0, 0, 0, 0.7); }
+    to { background-color: rgba(255, 255, 255, 0.7); }
+  }
+
+  h1{
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    }   
+</style>
+{% endblock extra_css %}
+
+{% block content %}
+<body class="animated-bg">
+             
+  <div class="form-container">
+    <form method="post" novalidate>
+     <h1 class="text-center fw-bold text-danger">Update Profile</h1><br>
+
+      {% csrf_token %}
+  
+      {{form.as_p}}
+  
+      <button type="submit" class="btn btn-danger">Update</button>
+    </form>
+  </div>
+  
+{% endblock content %}

@@ -51,6 +51,7 @@ CREATED_APP = [
 THIRD_PARTY_APP = [
     'phonenumber_field',
     'widget_tweaks',
+    'import_export'
 ]
 
 
@@ -163,3 +164,7 @@ EMAIL_USE_TLS = os.environ.get("EMAIL_USE_TLS", True)
 IS_FAST_SMS_SERVICE= 1
 FAST2SMS_API_KEY= 'RjhUcH1zXSnosExmWpDY6Ag5vfF089JI3udibeT2QZGLPBMtyViLdOcguaRqM6wjpeYmlPNE3XvSn9J4'
 FAST_SMS_URL= "https://www.fast2sms.com/dev/bulkV2"
+
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+CELERY_TIMEZONE = 'UTC'

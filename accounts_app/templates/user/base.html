@@ -18,7 +18,8 @@
         <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
         <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
         <link rel="stylesheet" href="{% static 'css/blood-res.css' %}">
-        <link rel="stylesheet" href="{% static 'css/blooddrop.css' %}">
+        <link rel="stylesheet" href="{% static 'css/blooddrop_css.css' %}">
+        
         
 
     <!-- favicon.ico -->
@@ -28,7 +29,9 @@
     
     {% endblock extra_css %}
     <style>
-    
+           .dropdown-menu{
+               padding:20px;
+           }
     </style>
 </head>
 <body>
@@ -53,43 +56,50 @@
                 <ul class="navigation d-flex ">
                     <li><a href="{% url 'index' %}">Home</a></li>
                     <li><a href="{% url 'about' %}">AboutUs</a></li>
-                    <li><a href="#">Donors</a></li>
-                    <li><a href="#">search</a></li>
                     {% if user.is_authenticated %}
                         <li><a href="{% url 'donation_history' user.id %}">Donation_History</a></li>
                         <li>
-                            <a href="#" class="z-5">{{ request.user.name }}</a>
-                            <ul class="sub_manu position-absolute">
-                                <li><a href="#">Profile</a></li>
-                                <li><a href="#">Details</a></li>
-                                <li><a href="#">Element</a></li>
-                                <li><a href="{% url 'logout' %}">Logout</a></li>
-                            </ul>
+                            <a href="{% url 'display_profile' %}" class="z-5">{{ request.user.name|title }}</a>
+                        </li>
+                        <li>                            
+                              <a href="{% url 'logout' %}">Logout</a>                         
                         </li>
                     {% else %}
-                        <li><a href="{% url 'login' %}">Sign In</a></li>
+                        <li class="dropdown">
+                              <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown">Sign In</a>
+                              <ul class="dropdown-menu">
+                                   <li><a href="{% url 'bloodbank_signin' %}" class="text-danger">Bloodbank_Signin</a></li>
+                                   <li><a href="{% url 'login' %}" class="text-danger">User_Signin</a></li>
+                              </ul>
+                         </li>
                     {% endif %}
+                    
                 </ul>
+
                 <div class="icon_bars fs-2  text-center ">
                     <i class="fa-solid fa-bars"></i>
                 </div>
 
                 <ul class="moblie_manu z-3 ">
-                    <li ><a href="blood.html">Home</a></li>
-                    <li><a  href="#">Donors</a></li>
-                    <li><a  href="#">search</a></li>
-                    <li><a  href="#">signin</a></li>
-                    <li><a href="about.html">About Us</a></li>
-                    <li><a  href="#" class="z-5">
-                        Donor Name
-                        </a>
-                        <ul class="sub_manu position-absolute 
-                        ">
-                            <li><a href="#">CONTACT</a></li>
-                            <li><a href="#"> Details</a></li>
-                            <li><a href="#">Element</a></li>
-                        </ul>
-                    </li>
+                    <li><a href="{% url 'index' %}">Home</a></li>
+                    <li><a href="{% url 'about' %}">AboutUs</a></li>
+                    {% if user.is_authenticated %}
+                        <li><a href="{% url 'donation_history' user.id %}">Donation_History</a></li>
+                        <li>
+                            <a href="{% url 'display_profile' %}" class="z-5">{{ request.user.name }}</a>
+                        </li>
+                        <li>                            
+                              <a href="{% url 'logout' %}">Logout</a>                         
+                        </li>
+                    {% else %}
+                        <li class="dropdown">
+                              <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown">Sign In</a>
+                              <ul class="dropdown-menu">
+                                   <li><a href="{% url 'bloodbank_signin' %}" class="text-danger">Bloodbank_Signin</a></li>
+                                   <li><a href="{% url 'login' %}" class="text-danger">User_Signin</a></li>
+                              </ul>
+                         </li>
+                    {% endif %}
                 </ul>
             </div>
         </div>
@@ -107,74 +117,70 @@
 <!-- Footer start  -->
 <!-- --start footer-- -->
 <footer class="footer_main bg-dark">
-
-    <section class="footer-area " >
+     <section class="footer-area">
          <div class="container">
-              <div class="row d-flex justify-content-between ">
-                   <div class="col-lg-4 col-md-12 col-sm-6">
-                        <div class="footer-cap mb-50">
-                             <div class="footer-cap">
-                                  <div class="footer-logo col-6">
-                                       <a href="#"><img src="{% static 'images/logo2light.png' %}" alt=""></a>
-                                  </div>
-                                  <div class="footer-title text-light">
-                                       <div class="footer-para">
-                                            <p class="mb-50">Lorem ipsum dolor sit amet, consect etur adi pisicing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                       </div>
-                                  </div>
-                                  <div class="footer-social">
-                                       <a href="#"><i class="fa-brands fa-square-facebook"></i></a>
-                                       <a href="#"><i class="fa-brands fa-square-twitter"></i></a>
-                                       <a href="#"><i class="fa-brands fa-linkedin"></i></a>
-                                       <a href="#"><i class="fa-brands fa-square-pinterest"></i></a>
-                                  </div>
+             <div class="row d-flex justify-content-between">
+                 <div class="col-lg-4 col-md-12 col-sm-6">
+                     <div class="footer-cap mb-50">
+                         <div class="footer-cap">
+                             <div class="footer-logo col-6">
+                                 <a href="#"><img src="{% static 'images/logo2light.png' %}" alt=""></a>
                              </div>
-                        </div>
-                   </div>
-                   <div class="col-lg-2 col-md-4 col-sm-5">
-                        <div class="single-footer-cap ">
                              <div class="footer-title text-light">
-                                  <p class="h4 footer-main">
-                                    Links</p>
-                                  <ul>
-                                       <li><a href="#"> Home</a></li>
-                                       <li><a href="#">About Us</a></li>
-                                       <li><a href="#">Services</a></li>
-                                       <li><a href="#">Cases</a></li>
-                                       <li><a href="#">Contact Us</a></li>
-                                  </ul>
+                                 <div class="footer-para">
+                                     <p class="mb-50">We strive to save lives by providing a reliable and efficient blood bank management system.</p>
+                                 </div>
                              </div>
-                        </div>
-                   </div>
-                   <div class="col-lg-3 col-md-4 col-sm-7">
-                        <div class="single-footer-cap">
-                             <div class="footer-title text-light">
-                                  <p class="h4 footer-main">Services</p>
-                                  <ul>
-                                       <li><a href="#">Commercial Cleaning</a></li>
-                                       <li><a href="#">Office Cleaning</a></li>
-                                       <li><a href="#">Building Cleaning</a></li>
-                                       <li><a href="#">Floor Cleaning</a></li>
-                                       <li><a href="#">Apartment Cleaning</a></li>
-                                  </ul>
+                             <div class="footer-social">
+                                 <a href="#"><i class="fa-brands fa-square-facebook"></i></a>
+                                 <a href="#"><i class="fa-brands fa-square-twitter"></i></a>
+                                 <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+                                 <a href="#"><i class="fa-brands fa-square-pinterest"></i></a>
                              </div>
-                        </div>
-                   </div>
-                   <div class="col-lg-3 col-md-4 col-sm-5">
-                        <div class="single-footer-cap mb-50">
-                             <div class="footer-title text-light">
-                                  <p class="h4 footer-main">Get in Touch</p>
-                                  <ul>
-                                       <li><a href="#">152-515-6565</a></li>
-                                       <li><a href="#">Demomail@gmail.com</a></li>
-                                       <li><a href="#">New Orleans, USA</a></li>
-                                  </ul>
-                             </div>
-                        </div>
-                   </div>
-              </div>
+                         </div>
+                     </div>
+                 </div>
+                 <div class="col-lg-2 col-md-4 col-sm-5">
+                     <div class="single-footer-cap ">
+                         <div class="footer-title text-light">
+                             <p class="h4 footer-main">Links</p>
+                             <ul>
+                                 <li><a href="#"> Home</a></li>
+                                 <li><a href="#">About Us</a></li>
+                                 <li><a href="#">Services</a></li>
+                                 <li><a href="#">Donate Blood</a></li>
+                                 <li><a href="#">Contact Us</a></li>
+                             </ul>
+                         </div>
+                     </div>
+                 </div>
+                 <div class="col-lg-3 col-md-4 col-sm-7">
+                     <div class="single-footer-cap">
+                         <div class="footer-title text-light">
+                             <p class="h4 footer-main">Services</p>
+                             <ul>
+                                 <li><a href="#">Blood Donation</a></li>
+                                 <li><a href="#">Blood Searching</a></li>
+                                 <li><a href="#">Blood Bank Management</a></li>
+                                 <li><a href="#">Patient Blood Management</a></li>
+                                 <li><a href="#">Blood Camp Schedule</a></li>
+                             </ul>
+                         </div>
+                     </div>
+                 </div>
+                 <div class="col-lg-3 col-md-4 col-sm-5">
+                     <div class="single-footer-cap mb-50">
+                         <div class="footer-title text-light">
+                             <p class="h4 footer-main">Get in Touch</p>
+                             <ul>
+                                 <li><a href="#">blood.drop00@gmail.com</a></li>
+                             </ul>
+                         </div>
+                     </div>
+                 </div>
+             </div>
          </div>
-    </section>
+     </section>
 
     <!-- --start footer bottom-- -->
     <section class="footer-bottom-area">
@@ -199,6 +205,6 @@
  <script src="{% static 'js/jquery-3.6.3.min.js' %}"></script>    
  <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
  <script src="{% static 'js/owl.carousel.min.js' %}"></script>
- <script src="{% static 'js/blood.js' %}"></script>
+ <script src="{% static 'js/blooddrop_js.js' %}"></script>
 </body>
 </html>

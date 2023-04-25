@@ -75,6 +75,9 @@
         background-color: #dc3545;
         color: #fff;
       }
+      h1{
+        font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    }
       
       @media (max-width: 600px) {
         .form-container {
@@ -93,6 +96,8 @@
              
   <div class="form-container">
     <form method="post" novalidate>
+      <h1 class="text-center fw-bold text-danger">Signin</h1>
+
       {% csrf_token %}
   
       {{form.as_p}}

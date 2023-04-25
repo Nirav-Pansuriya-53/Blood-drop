@@ -5,67 +5,120 @@
 {% block extra_css %}
 {{ block.super }}
 <style>
-  
-  h1{
-      text-align : center
-  }
-  form {
+
+    .form-container {
       max-width: 500px;
       margin: 0 auto;
-      box-shadow: 3px 3px 3px 3px lightgrey;
-      padding: 20px;
-      margin-top:100px;
-      margin-bottom:100px;
-    }
-    
-    label, input, textarea {
-      display:block;            
-      margin-bottom: 10px;
-      width:100%
-    }
-    label
-    {
-      font-weight: bold;
-    }
-    input, textarea {
-      padding: 5px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-    
-    button {
-      background-color: #ff0040;
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-    
-    button:hover {
-      background-color: #45a049;
-    }         
-</style>
+      padding: 50px;
+      background-color: rgba(255, 255, 255, 0.7);
+      border-radius: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      opacity: 0.9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 50px;
+      margin-bottom:150px;
 
+    }
+    form {
+      max-width: 500px; /* adjust this value as needed */
+      width: 100%;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+  
+    label {
+      display: block;
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    
+    button[type="submit"] {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 20px;
+      border: none;
+      background-color: #dc3545;
+      color: #fff;
+    }
+    #id_age, 
+    #id_weight, 
+    #id_pincode, 
+    #id_phone_number, 
+    #id_name, 
+    #id_email, 
+    #id_group,
+    #id_city,
+    #id_state
+    {
+      border-radius: 20px;
+      border: 1px solid #ccc;
+      padding: 8px;
+      background-color: #eee;
+      width:400px;
+      height:6vh;
+    }
+    #id_address
+    {
+      border-radius: 20px;
+      border: 1px solid #ccc;
+      padding: 8px;
+      background-color: #eee;
+      width:400px;
+      height:10vh;
+    }
+
+    select {
+        font-size: 16px;
+        color: #333;
+        background-color: #eee;
+        border: 1px solid #ccc;
+        border-radius: 20px;
+        padding: 8px;
+        width: 400px;
+        margin-left: 0;
+        overflow: hidden; /* add overflow hidden to hide the options by default */
+        height: 40px; /* set a fixed height for the dropdown */
+        transition: height 0.2s ease; /* add transition to animate the height change */
+    }
+
+    select:hover,
+    select:focus {
+        height: 50px; /* increase the height on hover or focus */
+    }
+    h1{
+      font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    }
+    @media (max-width: 600px) {
+      .form-container {
+        max-width: 90%;
+      }
+    }
+    
+    @keyframes background {
+      from { background-color: rgba(0, 0, 0, 0.7); }
+      to { background-color: rgba(255, 255, 255, 0.7); }
+    }
+  </style>
 {% endblock extra_css %}
 
-       
 {% block content %}
-
-  <div class="container" id="container">
-    <div class="form-container sign-up-container">
-      <form action="" method="post" novalidate>
-        <h1>SignUp</h1>
-          {% csrf_token %}
-          {{form.as_p}}<br>
-          <button type="submit">Signup</button>
-          <p class="text-center">Do you have an account? <a href=" {% url 'login' %} ">Sign in</a>.</p>
-      </form>
-    </div>
-  </div>
+           
+<div class="form-container">
+  <form method="post" novalidate>
+    <h1 class="text-center fw-bold text-danger">Signup</h1><br>
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type="submit" class="btn btn-danger">Signup</button>
+    <p class="text-center">Do you have an account? <a href=" {% url 'login' %} ">Sign in</a>.</p>
+  </form>
+</div>
 
 {% endblock content %}
-
-
-
-

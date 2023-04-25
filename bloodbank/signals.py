@@ -8,6 +8,9 @@ from blooddrop import settings
 import random
 import string
 from django.contrib.auth.hashers import make_password
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from bloodbank.models import Donation
 
 @receiver(post_save, sender=BloodBank)
 def send_blood_bank_email(sender, instance, created, **kwargs):
@@ -45,3 +48,13 @@ def send_blood_bank_email(sender, instance, created, **kwargs):
     #     send_mail(subject, message, from_email, recipient_list)
 
     #     return super().form_valid(form)
+
+# @receiver(post_save, sender=Donation)
+# def create_blood_object(sender, instance, created, **kwargs):
+#     if created:
+#         blood_type = instance.donor.blood_group.blood_group
+#         bloodbank = instance.bloodbank
+#         blood = Blood.objects.filter(bloodbank=bloodbank, type=blood_type).first()
+#         if not blood:
+#             blood = Blood.objects.create(bloodbank=bloodbank, type=blood_type)
+#         blood.save()

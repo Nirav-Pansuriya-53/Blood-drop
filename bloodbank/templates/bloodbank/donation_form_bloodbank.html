@@ -119,6 +119,9 @@
     button:hover {
         transform: scale(1.01);
     }
+    h1{
+        font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    }
 </style>
 
 {% endblock extra_css %}
@@ -128,9 +131,16 @@
     <div class="form-container ">
   
       <form method="post" novalidate>
+        <h1 class="text-center fw-bold text-danger">Donation Form</h1>
+        <br>
         {% csrf_token %}
+
           {{form.as_p}} 
-        <button type="submit" class="btn btn-danger">Sign in</button>
+
+          <a href="{% url 'donordetail' %}">
+            <button type="submit" class="btn btn-danger" >Donate Now</button>
+          </a>
+       
       </form>
     </div>
 </div>

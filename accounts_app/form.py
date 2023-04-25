@@ -1,4 +1,4 @@
-from accounts_app.models import User,BloodGroup
+from accounts_app.models import BloodRequest, User,BloodGroup
 from django import forms
 import random
 from datetime import datetime
@@ -11,7 +11,7 @@ class SignUpForm(forms.ModelForm):
     group = forms.ChoiceField(choices=BloodGroup.BLOOD_GROUP_CHOICES)
     class Meta:
         model = User
-        fields = ('name','email','phone_number','group','address','city','state','pincode')
+        fields = ('name','email','phone_number','group','age','weight','address','city','state','pincode')
 
 
     def save(self, commit=True):
@@ -22,6 +22,25 @@ class SignUpForm(forms.ModelForm):
             BloodGroup.objects.create(user=user, blood_group=group)
         return user
     
+    def __init__(self, *args, **kwargs):
+        super(SignUpForm, self).__init__(*args, **kwargs)
+        
+        # Add required validation to age and weight fields
+        self.fields['age'].required = True
+        self.fields['weight'].required = True
+
+    def clean(self):
+        cleaned_data = super().clean()
+        age = cleaned_data.get('age')
+        weight = cleaned_data.get('weight')
+
+        if age is not None and age < 25:
+            raise forms.ValidationError('Age must be greater than or equal to 25.')
+
+        if weight is not None and weight < 45:
+            raise forms.ValidationError('Weight must be greater than or equal to 45.')
+
+        return cleaned_data
 
 class LoginForm(forms.Form):
 
@@ -87,3 +106,27 @@ class OTPForm(forms.Form):
     
     def get_user(self):
         return self.user
+
+class BloodRequestForm(forms.ModelForm):
+    class Meta:
+        model = BloodRequest
+        fields = ['bloodbank', 'blood_group', 'quantity']
+
+
+class UserUpdatePRofileForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['name', 'email', 'phone_number', 'address', 'age', 'weight']
+
+    def clean(self):
+        cleaned_data = super().clean()
+        age = cleaned_data.get('age')
+        weight = cleaned_data.get('weight')
+
+        if age is not None and age < 25:
+            raise forms.ValidationError('Age must be greater than or equal to 25.')
+
+        if weight is not None and weight < 45:
+            raise forms.ValidationError('Weight must be greater than or equal to 45.')
+
+        return cleaned_data

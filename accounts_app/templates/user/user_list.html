@@ -1,0 +1,62 @@
+{% extends 'user/base.html' %}
+
+{% block extra_css %}
+<style>
+h1{
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  margin-top:40px;
+}
+table{
+  margin-top:20px;
+}
+form{
+  margin-bottom:150px;
+}
+
+
+</style>
+
+{% endblock extra_css %}
+
+{% block content %}
+<div class="container">
+  <h1 class="text-center fw-bold text-danger" >Blood Stock Availability</h1>
+  <br>
+  <form>
+    <table class="table table-striped shadow p-4 mb-4 bg-white p-4">
+      <thead class="bg-danger text-white">
+        <tr>
+          <th>BloodBank Name</th>
+          <th>Address</th>
+          <th>City</th>
+          <th>State</th>
+          <th>Pin code</th>
+          <th>Blood Group</th>
+          <th>Available units</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% if blood_banks %}
+          {% for blood_bank in blood_bank_data %}
+          <tr>
+              <td>{{ blood_bank.blood_bank.user.name|title }}</td>
+              <td>{{ blood_bank.blood_bank.address|title }}</td>
+              <td>{{ blood_bank.blood_bank.city|title }}</td>
+              <td>{{ blood_bank.blood_bank.state |title}}</td>
+              <td>{{ blood_bank.blood_bank.pincode }}</td> 
+              <td>{{ blood_group }}</td>
+              <td>{{ blood_bank.count }}</td>
+          </tr> 
+          {% endfor %}   
+        {% else %}
+            <script>
+                alert("No BloodBank Found")
+                window.location.replace("/user/index");
+            </script>
+        {% endif %}
+      </tbody>
+    </table>
+  </form>
+  
+</div>
+{% endblock content%}

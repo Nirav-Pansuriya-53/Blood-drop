@@ -580,3 +580,81 @@ box-shadow: 0 1px 5px rgba(0, 0, 0, 0.07);
   background-color: #FE3C47;
     color: var(--text-color-white);
  }
+
+ .adv_img{
+  background-color: #232226;
+  /* background-image: linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)), url(../img/transfusing-blood-2021-09-24-03-29-16-utc.jpg) ; */
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)), url(../images/ent_3.jpg) ;
+  
+
+ }
+ .ad_main_contion{
+  background-color: #ffff;
+  padding: 80px 0;
+ }
+
+ .cta-section-2 {
+  padding: 64px 0;
+  background: transparent;
+  background-image: url('../images/pattern1.png');
+  background-repeat: repeat;
+  background-position: center center;
+  background-size: initial;
+  background-attachment: fixed;
+  display: block;
+  clear: both;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+.cta-section-2:before {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #EF3D32;
+  opacity: 0.95;
+  top: 0;
+  left: 0;
+  content: '';
+}
+.cta-section-2 h2 {
+  font-size: 32px;
+  line-height: 42px;
+  color: #FFFFFF;
+  font-weight: 700;
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+.cta-section-2 p {
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: 0.004em;
+  color: #FFFFFF;
+}
+a.btn-cta-2 {
+  background: #FAFAFA;
+  color: #EF3D32;
+  border: 2px solid #CCCCCC;
+  font-size: 22px;
+  font-weight: 600;
+  height: 60px;
+  line-height: 42px;
+  margin-bottom: 6px;
+  margin-top: 24px;
+  padding-left: 28px;
+  padding-right: 28px;
+  position: relative;
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  border-radius: 0px;
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+  transition: all 0.3s ease-out 0.2s;
+}
+a.btn-cta-2:hover {
+  background: #EF3D32;
+  color: #FFFFFF;
+}

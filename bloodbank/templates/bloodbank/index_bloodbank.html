@@ -50,6 +50,24 @@
      height: 40px;
      width: 110px;
     }
+    select {
+      font-size: 16px;
+      color: #333;
+      background-color: #eee;
+      border: 1px solid #ccc;
+      border-radius: 20px;
+      padding: 8px;
+      width: 450px;
+      overflow: hidden; /* add overflow hidden to hide the options by default */
+      height: 40px; /* set a fixed height for the dropdown */
+      transition: height 0.2s ease; /* add transition to animate the height change */
+  }
+
+  select:hover,
+  select:focus {
+      height: 50px; /* increase the height on hover or focus */
+  }
+    
 
 </style> 
 
@@ -60,17 +78,26 @@
 <br><br>
 
 <div class="container">
+  {% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-warning" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
   <form method="get" action="{% url 'donordetail' %}">
+    
       <div class="row height d-flex justify-content-center align-items-center">
 
         <div class="col-md-8">
 
           <div class="search">
             <i class="fa fa-search"></i>
-            <input type="text" class="form-control" name="q" placeholder="Search donor email id wise ">
-            <button class="btn btn-danger">Search</button>
+            
+              <input type="text" class="form-control" name="q" placeholder="Search donor email id wise " required>
+              
+              <button class="btn btn-danger">Search</button>
           </div>
-          
         </div>
         
       </div>
@@ -84,7 +111,7 @@
                   <h2>A+ <i class="fas fa-tint"></i></h2>
               </div><br><br>
               <div>
-                {{ a_positive_count }}ml
+                {{ A1 }} unit
               </div>                            
           </div>
         </div>
@@ -96,7 +123,7 @@
                       <h2>B+ <i class="fas fa-tint"></i></h2>
                   </div><br><br>
                   <div>
-                    {{ blood_count.B2 }}ml
+                    {{ B1 }} unit
                   </div>                            
               </div>
             </div>
@@ -108,7 +135,7 @@
                       <h2>O+ <i class="fas fa-tint"></i></h2>
                   </div><br><br>
                   <div>
-                    {{O1.unit}}ml
+                    {{ O1 }} unit
                   </div>                            
               </div>
             </div>
@@ -120,7 +147,7 @@
                       <h2>AB+ <i class="fas fa-tint"></i></h2>
                   </div><br><br>
                   <div>
-                    {{AB1.unit}}ml
+                    {{ AB1 }} unit
                   </div>                            
               </div>
             </div>
@@ -135,7 +162,7 @@
                   <h2>A- <i class="fas fa-tint"></i></h2>
               </div><br><br>
               <div>
-                {{A2.unit}}ml
+                {{ A2 }} unit
               </div>                            
           </div>
         </div>
@@ -147,7 +174,7 @@
                       <h2>B- <i class="fas fa-tint"></i></h2>
                   </div><br><br>
                   <div>
-                    {{B2.unit}}ml
+                    {{ B2 }} unit
                   </div>                            
               </div>
             </div>
@@ -159,7 +186,7 @@
                       <h2>O- <i class="fas fa-tint"></i></h2>
                   </div><br><br>
                   <div>
-                    {{O2.unit}}ml
+                    {{ O2 }} unit
                   </div>                            
               </div>
             </div>
@@ -171,7 +198,7 @@
                       <h2>AB- <i class="fas fa-tint"></i></h2>
                   </div><br><br>
                   <div>
-                    {{AB2.unit}}ml
+                    {{ AB2 }} unit
                   </div>                            
               </div>
             </div>
@@ -179,30 +206,20 @@
     </div>
 <hr>
 <br>
-<h3 class="text-center">Update Blood Unit(ml)</h3><br>
+<h3 class="text-center">Update Blood Unit</h3><br>
 <div class="xyz">
 
-    <form class="form-inline" method="POST">
+    <form class="form-inline" method="post">
         {% csrf_token %}
         <div class="form-group mx-sm-3 mb-6 form">
-            <select name="bloodgroup" class="form-control">
-                <option disabled="disabled" selected="selected">Choose a Blood Group</option>
-                <option>O+</option>
-                <option>O-</option>
-                <option>A+</option>
-                <option>A-</option>
-                <option>B+</option>
-                <option>B-</option>
-                <option>AB+</option>
-                <option>AB-</option>
-            </select>
+            
+                {{ form.as_p }}
+               
           </div>
-        <div class="form-group mx-sm-3 mb-6">
-          <input type="number" class="form-control" name="unit" placeholder="*** ml">
-        </div>
         <button type="submit" class="btn btn-danger">Update Stock</button>
     </form>
 </div>
 <hr>
+
 
 {% endblock content %}

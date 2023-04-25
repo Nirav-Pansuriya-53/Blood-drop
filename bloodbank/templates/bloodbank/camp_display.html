@@ -1,0 +1,62 @@
+{% extends "bloodbank/base_bloodbank.html" %}
+
+{% block extra_css %}
+
+<style>
+  table{
+    border-radius: 50px ;
+  }
+  thead{
+    background:rgb(255, 179, 179);
+  }
+  h1{
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    margin-top:40px;
+  }
+  table{
+    margin-top:20px;
+    margin-left:50px;
+  }
+</style>
+
+{% endblock extra_css %}
+
+{% block content %}
+<br><br>
+<div class="container">
+    <h1 class="text-center fw-bold text-danger">Camp Schedule</h1>
+    <br>
+    <table class="table table-striped shadow p-4 mb-4 bg-white p-4">
+        <thead class="text-white bg-danger">
+          <tr>
+            <th scope="col">Organized by</th>
+            <th scope="col">Date</th>
+            <th scope="col">Starttime Date</th>
+            <th scope="col">Endtime</th>
+            <th scope="col">Address</th>
+            <th scope="col">Update</th>
+          </tr>
+        </thead>
+        <tbody>
+                    {% for camp in camp_obj %}
+                    <tr>
+                        <td>{{ camp.bloodbank.user.name|title }}</td>
+                        <td>{{ camp.date|date }}</td>
+                        <td>{{ camp.starttime }}</td>
+                        <td>{{ camp.endtime }} </td>
+                        <td>{{ camp.address|title }} </td>
+                        {% if camp.date|date >= today|date %}
+                        <td>
+                                <a href="{% url 'camp_update' camp.id %}"><i class="fa fa-edit" style="font-size:30px;color:red"></i></a></td>
+                        {% else %}
+                            <td>Close</td>
+                        {% endif %}
+                        
+                    </tr>
+                    {% endfor %}
+                          
+        </tbody>
+      </table>
+</div>
+<br><br><br><br><br><br>
+{% endblock content %}
